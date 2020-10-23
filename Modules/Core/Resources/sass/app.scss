@@ -1,0 +1,79 @@
+@import '~vuetify/dist/vuetify.min.css';
+@import '~@mdi/font/css/materialdesignicons.min.css';
+body {
+    color: #000 !important;
+}
+.v-application {
+    font-family: Poppins, sans-serif;
+    line-height: 1.5 !important;
+    font-weight: 400;
+}
+.v-application .display-1, .v-application .subtitle-1 {
+    font-family: Poppins, sans-serif !important;
+}
+.v-application a.link {
+    color: #455a64;
+    text-decoration: none;
+}
+.custom-loader {
+    animation: loader 1s infinite;
+    display: flex;
+}
+
+@-moz-keyframes loader {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes loader {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@-o-keyframes loader {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+@keyframes loader {
+    from {
+        transform: rotate(0);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+[v-cloak] {
+    display: none;
+}
+
+.v-navigation-drawer__content {
+    display: block;
+    overflow: hidden scroll;
+    height: 100%;
+    width: calc(100% + 17px);
+}
+
+.v-main__wrap {
+    background-color: #fcfcfc;
+}
+
+.main-menu--active {
+    background-color: #1e88e5 !important;
+    border-color: #1e88e5 !important;
+    color: #fff !important;
+}
+
+.op-5 {
+    opacity: 0.5;
+}
