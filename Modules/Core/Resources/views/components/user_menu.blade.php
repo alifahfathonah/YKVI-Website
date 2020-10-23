@@ -24,18 +24,15 @@
         <v-list>
             <v-list-item>
                 <v-list-item-avatar>
-                    <v-icon>
+                    <v-icon size="40">
                         mdi-account-circle
                     </v-icon>
                 </v-list-item-avatar>
-            </v-list-item>
-
-            <v-list-item>
                 <v-list-item-content>
                     <v-list-item-title class="title">
-                        {{ Auth::user()->nama ?? '' }}
+                        {{ Auth::user()->name ?? 'Administrator' }}
                     </v-list-item-title>
-                    <v-list-item-subtitle>{{ Auth::user()->email ?? '' }}</v-list-item-subtitle>
+                    <v-list-item-subtitle>{{ Auth::user()->email ?? 'admin@admin.com' }}</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>
         </v-list>
