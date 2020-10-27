@@ -28,6 +28,7 @@
 		data: () => ({
 			search_kategori: null,
 			form_data: {
+				title: '',
 				description: '',
 				link_url_redirect: '',
 			},
@@ -51,6 +52,7 @@
     		            	if (response.data.success) {
     		            		let data = response.data.data
     		            		this.form_data = {
+    		            			title: data.title,
     		            			description: data.description,
     		            			link_url_redirect: data.link_url_redirect,
     		            		}
@@ -73,6 +75,7 @@
     		},
 			clearForm() {
 				this.form_data = {
+					title: '',
 					description: '',
 					link_url_redirect: '',
 				}

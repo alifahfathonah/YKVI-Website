@@ -4,7 +4,7 @@
             <v-select
                 class="my-4"
                 v-model="form_data.page_name" 
-                :items="['Home', 'E-Learning', 'Product', 'Contact Us']"
+                :items="['Home', 'E-Learning', 'CME', 'Product', 'Contact Us']"
                 label="Menu"
                 name="page_name"
                 hint="* harus diisi"

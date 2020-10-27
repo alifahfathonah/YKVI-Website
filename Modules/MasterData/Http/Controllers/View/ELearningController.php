@@ -31,6 +31,12 @@ class ELearningController extends Controller
     {
         $table_headers = [
             [
+                "text" => 'Judul',
+                "align" => 'center',
+                "sortable" => false,
+                "value" => 'title',
+            ],
+            [
                 "text" => 'Link URL',
                 "align" => 'center',
                 "sortable" => false,
@@ -69,11 +75,11 @@ class ELearningController extends Controller
      */
     public function edit(ELearning $e_learning)
     {
-        $this->breadcrumbs[] = ['href' => route('e-learning.edit', [ $e_learning->slug ]), 'text' => 'Ubah E-Learning ' . $e_learning->pertanyaan];
+        $this->breadcrumbs[] = ['href' => route('e-learning.edit', [ $e_learning->slug ]), 'text' => 'Ubah E-Learning ' . $e_learning->title];
 
         return view('masterdata::e_learning.edit')
             ->with('data', $e_learning)
-            ->with('page_title', 'Ubah E-Learning ' . $e_learning->pertanyaan)
+            ->with('page_title', 'Ubah E-Learning ' . $e_learning->title)
             ->with('breadcrumbs', $this->breadcrumbs);
     }
 }

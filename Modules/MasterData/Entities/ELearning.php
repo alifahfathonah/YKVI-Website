@@ -23,6 +23,7 @@ class ELearning extends Model
      * @var array
      */
     protected $fillable = [
+        'title',
     	'description',
         'link_url_redirect',
     ];
@@ -55,7 +56,7 @@ class ELearning extends Model
     {
         return [
             'slug' => [
-                'source' => ['link_url_redirect']
+                'source' => ['title']
             ]
         ];
     }

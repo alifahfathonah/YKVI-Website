@@ -1,11 +1,11 @@
 <validation-observer v-slot="{ validate, reset }" ref="observer">
     <form method="post" enctype="multipart/form-data" ref="post-form">
-        <validation-provider rules="required" name="Link URL" v-slot="{ errors }">
+        <validation-provider rules="required" name="Judul E-Learning" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
-                v-model="form_data.link_url_redirect"
-                label="Link URL"
-                name="link_url_redirect"
+                v-model="form_data.title"
+                label="Judul E-Learning"
+                name="title"
                 clearable
                 clear-icon="mdi-eraser-variant"
                 hint="* harus diisi"
@@ -32,8 +32,23 @@
             </v-col>
         </v-row>
         
+        <validation-provider rules="required" name="Link URL" v-slot="{ errors }">
+            <v-text-field
+                class="mb-4"
+                v-model="form_data.link_url_redirect"
+                label="Link URL"
+                name="link_url_redirect"
+                clearable
+                clear-icon="mdi-eraser-variant"
+                hint="* harus diisi"
+                :persistent-hint="true"
+                :error-messages="errors"
+                :disabled="field_state"
+            ></v-text-field>
+        </validation-provider>
+
         <v-btn
-        	class="mr-4"
+        	class="mr-4 mt-5"
           	:loading="field_state"
           	:disabled="field_state"
             color="primary"
@@ -47,6 +62,7 @@
             </template>
         </v-btn>
         <v-btn
+            class="mt-5"
 	        type="button"
 	        @click="clearForm"
 	        :disabled="field_state"

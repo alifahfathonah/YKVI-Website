@@ -11,16 +11,30 @@
 |
 */
 
-Route::prefix('master-data')->namespace('View')->group(function() {
-    Route::resource('faq', 'FaqController')->only([
-		'index', 'create', 'edit'
-	]);
+Route::prefix('backend')->group(function() {
+	Route::prefix('master-data')->namespace('View')->group(function() {
+	    Route::resource('faq', 'FaqController')->only([
+			'index', 'create', 'edit'
+		]);
 
-	Route::resource('banner', 'BannerController')->only([
-		'index', 'create', 'edit'
-	]);
+		Route::resource('banner', 'BannerController')->only([
+			'index', 'create', 'edit'
+		]);
 
-	Route::resource('e-learning', 'ELearningController')->only([
-		'index', 'create', 'edit'
-	]);
+		Route::resource('cme', 'CmeController')->only([
+			'index', 'create', 'edit'
+		]);
+
+		Route::resource('e-learning', 'ELearningController')->only([
+			'index', 'create', 'edit'
+		]);
+
+		Route::resource('product', 'ProductController')->only([
+			'index', 'create', 'edit'
+		]);
+
+		Route::resource('product-details', 'ProductDetailController')->only([
+			'index', 'create', 'edit'
+		]);
+	});
 });

@@ -27,7 +27,7 @@
                         >
                             <v-toolbar-title
                                 class="d-flex align-content-center flex-wrap white--text">
-                                <a href="{{ url('/') }}" class="ml-2 white--text text-decoration-none">{{ config('app.name', 'YKVI') }}</a>
+                                <a href="{{ url('/') }}" class="ml-2 white--text text-decoration-none">{{ config('app.name', 'Laravel') }}</a>
                             </v-toolbar-title>
                             
                             <v-app-bar-nav-icon

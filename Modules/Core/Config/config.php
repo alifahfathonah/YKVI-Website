@@ -23,8 +23,15 @@ return [
     	    'children' => [
                 [
                     'icon' => 'mdi-adjust',
-                    'text' => 'Banner',
+                    'text' => 'Banners',
                     'uri' => 'banner.index',
+                    'model' => false,
+                    'show' => true
+                ],
+                [
+                    'icon' => 'mdi-adjust',
+                    'text' => 'CME',
+                    'uri' => 'cme.index',
                     'model' => false,
                     'show' => true
                 ],
@@ -45,17 +52,24 @@ return [
                 [
                     'icon' => 'mdi-adjust',
                     'text' => 'Products',
-                    'uri' => '',
+                    'uri' => 'product.index',
                     'model' => false,
                     'show' => true
                 ],
+                // [
+                //     'icon' => 'mdi-adjust',
+                //     'text' => 'Product Details',
+                //     'uri' => 'product-details.index',
+                //     'model' => false,
+                //     'show' => true
+                // ],
     	    ]
     	],
         [  
             'icon' => 'mdi-newspaper-variant-outline',
             'icon-alt' => 'mdi-chevron-down',
             'text' => 'Contact Us',
-            'uri' => '',
+            'uri' => 'contact-us.index',
             'model' => false,
             'show' => true,
             'children' => null

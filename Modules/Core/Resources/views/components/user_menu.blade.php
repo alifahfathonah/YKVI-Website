@@ -24,9 +24,11 @@
         <v-list>
             <v-list-item>
                 <v-list-item-avatar>
-                    <v-icon size="40">
-                        mdi-account-circle
-                    </v-icon>
+                    <v-avatar color="indigo" size="40">
+                        <v-icon dark>
+                            mdi-account-circle
+                        </v-icon>
+                    </v-avatar>
                 </v-list-item-avatar>
                 <v-list-item-content>
                     <v-list-item-title class="title">

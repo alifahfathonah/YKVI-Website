@@ -30,7 +30,7 @@ class ELearningController extends Controller
             $data->save();
 
             log_activity(
-                'Tambah E-Learning ' . $data->menu,
+                'Tambah E-Learning ' . $data->title,
                 $data
             );
 
@@ -63,7 +63,7 @@ class ELearningController extends Controller
             $e_learning->save();
 
             log_activity(
-                'Ubah E-Learning ' . $e_learning->menu,
+                'Ubah E-Learning ' . $e_learning->title,
                 $e_learning
             );
             
@@ -85,7 +85,7 @@ class ELearningController extends Controller
         DB::beginTransaction();
         try {
             log_activity(
-                'Hapus E-Learning ' . $e_learning->menu,
+                'Hapus E-Learning ' . $e_learning->title,
                 $e_learning
             );
 
@@ -116,8 +116,9 @@ class ELearningController extends Controller
     public function validateFormRequest($request)
     {
         return Validator::make($request->all(), [
-            'link_url_redirect' => 'bail|required|string|max:190',
-            'description'       => 'bail|required'
+            'title' => 'bail|required|string|max:190',
+            'description' => 'bail|required',
+            'link_url_redirect' => 'bail|required'
         ]);
     }
 
@@ -139,7 +140,7 @@ class ELearningController extends Controller
 
         if ($request->has('search') && $request->input('search')) {
             $query->where(function($subquery) use ($request) {
-                $subquery->orWhere('pertanyaan', 'LIKE', '%' . $request->input('search') . '%');
+                $subquery->orWhere('title', 'LIKE', '%' . $request->input('search') . '%');
             });
         }
         

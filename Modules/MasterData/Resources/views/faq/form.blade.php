@@ -36,7 +36,7 @@
             class="my-4"
             v-model="form_data.publish_status"
             name="publish_status"
-            label="Publish"
+            label="Publish Status"
             :true-value="1"
             :false-value="0"
             inset
