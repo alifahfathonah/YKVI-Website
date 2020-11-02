@@ -36,5 +36,9 @@ Route::prefix('backend')->group(function() {
 		Route::resource('product-details', 'ProductDetailController')->only([
 			'index', 'create', 'edit'
 		]);
+
+		Route::resource('sym-card', 'SymCardController')->only([
+			'index', 'create', 'edit'
+		]);
 	});
 });

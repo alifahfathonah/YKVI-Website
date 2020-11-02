@@ -49,5 +49,11 @@ Route::prefix('backend')->group(function() {
 		Route::apiResource('product-details', 'ProductDetailController')->only([
 			'store', 'update', 'destroy'
 		]);
+
+		Route::get('sym-card/table', 'SymCardController@table')->name('sym-card.table');
+		Route::get('sym-card/{sym_card}/data', 'SymCardController@data')->name('sym-card.data');
+		Route::apiResource('sym-card', 'SymCardController')->only([
+			'store', 'update', 'destroy'
+		]);
 	});
 });

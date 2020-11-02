@@ -41,8 +41,8 @@
                 :disabled="field_state"
             >
             </v-file-input>
-            <a :href="form_data.url_banner_image" target="_blank">
-                <small>@{{ form_data.url_banner_image }}</small>
+            <a :href="form_data.url_banner_image" target="_blank" v-if="form_data.url_banner_image">
+                <small>Click here to view full image</small>
             </a>
         </div>
 

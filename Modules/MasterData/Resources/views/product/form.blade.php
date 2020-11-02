@@ -47,7 +47,7 @@
         </v-file-input>
 
         <v-btn
-        	class="mr-4"
+        	class="mr-4 mt-4"
           	:loading="field_state"
           	:disabled="field_state"
             color="primary"
@@ -61,6 +61,7 @@
             </template>
         </v-btn>
         <v-btn
+            class="mt-4"
 	        type="button"
 	        @click="clearForm"
 	        :disabled="field_state"

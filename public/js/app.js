@@ -640,6 +640,31 @@ var Ziggy = {
       "methods": ["DELETE"],
       "domain": null
     },
+    "sym-card.table": {
+      "uri": "api\/backend\/master-data\/sym-card\/table",
+      "methods": ["GET", "HEAD"],
+      "domain": null
+    },
+    "sym-card.data": {
+      "uri": "api\/backend\/master-data\/sym-card\/{sym_card}\/data",
+      "methods": ["GET", "HEAD"],
+      "domain": null
+    },
+    "sym-card.store": {
+      "uri": "api\/backend\/master-data\/sym-card",
+      "methods": ["POST"],
+      "domain": null
+    },
+    "sym-card.update": {
+      "uri": "api\/backend\/master-data\/sym-card\/{sym_card}",
+      "methods": ["PUT", "PATCH"],
+      "domain": null
+    },
+    "sym-card.destroy": {
+      "uri": "api\/backend\/master-data\/sym-card\/{sym_card}",
+      "methods": ["DELETE"],
+      "domain": null
+    },
     "faq.index": {
       "uri": "backend\/master-data\/faq",
       "methods": ["GET", "HEAD"],
@@ -729,6 +754,21 @@ var Ziggy = {
       "uri": "backend\/master-data\/product-details\/{product_detail}\/ubah",
       "methods": ["GET", "HEAD"],
       "domain": null
+    },
+    "sym-card.index": {
+      "uri": "backend\/master-data\/sym-card",
+      "methods": ["GET", "HEAD"],
+      "domain": null
+    },
+    "sym-card.create": {
+      "uri": "backend\/master-data\/sym-card\/tambah",
+      "methods": ["GET", "HEAD"],
+      "domain": null
+    },
+    "sym-card.edit": {
+      "uri": "backend\/master-data\/sym-card\/{sym_card}\/ubah",
+      "methods": ["GET", "HEAD"],
+      "domain": null
     }
   },
   baseUrl: 'http://ykvi-website.test/',
@@ -788,6 +828,9 @@ Vue.component('product-form', function () {
 });
 Vue.component('product-details-form', function () {
   return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(2)]).then(__webpack_require__.bind(null, /*! ./components/ProductDetails/Form.vue */ "./Modules/MasterData/Resources/js/components/ProductDetails/Form.vue"));
+});
+Vue.component('sym-card-form', function () {
+  return Promise.all(/*! import() */[__webpack_require__.e(0), __webpack_require__.e(13)]).then(__webpack_require__.bind(null, /*! ./components/SymCard/Form.vue */ "./Modules/MasterData/Resources/js/components/SymCard/Form.vue"));
 });
 
 /***/ }),

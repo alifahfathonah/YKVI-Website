@@ -56,6 +56,13 @@ return [
                     'model' => false,
                     'show' => true
                 ],
+                [
+                    'icon' => 'mdi-adjust',
+                    'text' => 'SymCards',
+                    'uri' => 'sym-card.index',
+                    'model' => false,
+                    'show' => true
+                ],
                 // [
                 //     'icon' => 'mdi-adjust',
                 //     'text' => 'Product Details',
