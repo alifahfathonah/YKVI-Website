@@ -2,7 +2,6 @@
 
 @section('content')
     <br>
-    <br>
     <h1>Selamat Datang, Administrator</h1>
     <br>
     <br>

@@ -49,7 +49,7 @@
                             v-model="drawer"
                             :clipped="$vuetify.breakpoint.lgAndUp">
                             <v-img
-                                height="120px"
+                                height="104px"
                                 src="https://cdn.pixabay.com/photo/2019/12/16/17/13/berlin-4699765_960_720.jpg"
                             >
                                 <v-card-title class="white--text mt-5">
@@ -59,7 +59,7 @@
                                             src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
                                         > -->
                                     </v-avatar>
-                                    <p class="mt-3">
+                                    <p>
                                         Administrator
                                     </p>
                                 </v-card-title>

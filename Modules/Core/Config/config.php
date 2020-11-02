@@ -14,13 +14,13 @@ return [
             'show' => true,
             'children' => null
         ],
-    	[
-    	    'icon' => 'mdi-database',
-    	    'icon-alt' => 'mdi-chevron-down',
-    	    'text' => 'Master Data',
-    	    'model' => false,
-    	    'show' => true,
-    	    'children' => [
+        [
+            'icon' => 'mdi-database',
+            'icon-alt' => 'mdi-chevron-down',
+            'text' => 'Master Data',
+            'model' => false,
+            'show' => true,
+            'children' => [
                 [
                     'icon' => 'mdi-adjust',
                     'text' => 'Banners',
@@ -35,13 +35,13 @@ return [
                     'model' => false,
                     'show' => true
                 ],
-    	        [
-    	            'icon' => 'mdi-adjust',
-    	            'text' => 'E-Learning',
+                [
+                    'icon' => 'mdi-adjust',
+                    'text' => 'E-Learning',
                     'uri' => 'e-learning.index',
-    	            'model' => false,
-    	            'show' => true
-    	        ],
+                    'model' => false,
+                    'show' => true
+                ],
                 [
                     'icon' => 'mdi-adjust',
                     'text' => 'FAQ E-Learning',
@@ -63,8 +63,17 @@ return [
                 //     'model' => false,
                 //     'show' => true
                 // ],
-    	    ]
-    	],
+            ]
+        ],
+        [  
+            'icon' => 'mdi-account-group',
+            'icon-alt' => 'mdi-chevron-down',
+            'text' => 'Kelola User',
+            'uri' => 'user.index',
+            'model' => false,
+            'show' => true,
+            'children' => null
+        ],
         [  
             'icon' => 'mdi-newspaper-variant-outline',
             'icon-alt' => 'mdi-chevron-down',

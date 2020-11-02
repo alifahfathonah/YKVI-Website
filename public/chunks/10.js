@@ -1,15 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[10],{
 
-/***/ "./Modules/MasterData/Resources/js/components/Faq/Form.vue":
-/*!*****************************************************************!*\
-  !*** ./Modules/MasterData/Resources/js/components/Faq/Form.vue ***!
-  \*****************************************************************/
+/***/ "./Modules/MasterData/Resources/js/components/E-Learning/Form.vue":
+/*!************************************************************************!*\
+  !*** ./Modules/MasterData/Resources/js/components/E-Learning/Form.vue ***!
+  \************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./Modules/MasterData/Resources/js/components/E-Learning/Form.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
@@ -31,29 +31,29 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "Modules/MasterData/Resources/js/components/Faq/Form.vue"
+component.options.__file = "Modules/MasterData/Resources/js/components/E-Learning/Form.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************!*\
-  !*** ./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************/
+/***/ "./Modules/MasterData/Resources/js/components/E-Learning/Form.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************!*\
+  !*** ./Modules/MasterData/Resources/js/components/E-Learning/Form.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Modules/MasterData/Resources/js/components/E-Learning/Form.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js&":
-/*!**************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js& ***!
-  \**************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Modules/MasterData/Resources/js/components/E-Learning/Form.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Modules/MasterData/Resources/js/components/E-Learning/Form.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -91,9 +91,9 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     return {
       search_kategori: null,
       form_data: {
-        pertanyaan: '',
-        jawaban: '',
-        publish_status: 1
+        title: '',
+        description: '',
+        link_url_redirect: ''
       },
       field_state: false,
       form_alert_state: false,
@@ -116,9 +116,9 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
           if (response.data.success) {
             var data = response.data.data;
             _this.form_data = {
-              pertanyaan: data.question,
-              jawaban: data.answer,
-              publish_status: data.publish_status
+              title: data.title,
+              description: data.description,
+              link_url_redirect: data.link_url_redirect
             };
             _this.field_state = false;
           } else {
@@ -137,9 +137,9 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     },
     clearForm: function clearForm() {
       this.form_data = {
-        pertanyaan: '',
-        jawaban: '',
-        publish_status: ''
+        title: '',
+        description: '',
+        link_url_redirect: ''
       };
       this.$refs.observer.reset();
     },
@@ -163,12 +163,10 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
 
       if (this.dataUri) {
         form_data.append("_method", "put");
-        form_data.append("answer", this.form_data.jawaban);
-        form_data.append("publish_status", this.form_data.publish_status);
+        form_data.append("description", this.form_data.description);
       }
 
-      form_data.append("answer", this.form_data.jawaban);
-      form_data.append("publish_status", this.form_data.publish_status);
+      form_data.append("description", this.form_data.description);
       axios.post(this.actionForm, form_data).then(function (response) {
         if (response.data.success) {
           _this3.form_alert_state = true;
