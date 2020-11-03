@@ -60,7 +60,7 @@
                                         > -->
                                     </v-avatar>
                                     <p>
-                                        Administrator
+                                        {{ Auth::user()->name ?? '' }}
                                     </p>
                                 </v-card-title>
                             </v-img>

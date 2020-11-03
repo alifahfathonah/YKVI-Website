@@ -35,13 +35,13 @@
                                         <v-row>
                                             <v-col
                                                 lg="7"
-                                                class="info d-none d-md-flex justify-center align-center"
+                                                class="red darken-3 d-none d-md-flex justify-center align-center"
                                             >
                                                 <div class="d-none d-sm-block">
                                                     <div class="d-flex align-center pa-10">
                                                         <div>
-                                                            <h2 class="display-1 white--text font-weight-medium">
-                                                                Epic Home
+                                                            <h2 class="display-1 white--text font-weight-medium text-center">
+                                                                YKVI Website Backend
                                                             </h2>
                                                             {{-- <h6 class="subtitle-1 mt-4 white--text op-5 font-weight-regular">
                                                                 Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.

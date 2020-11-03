@@ -15,7 +15,7 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        // $this->middleware(['auth']);
+        $this->middleware(['auth']);
         $this->breadcrumbs = [
             ['href' => url('/'), 'text' => 'mdi-home'],
             ['href' => route('user.index'), 'text' => 'Kelola User'],

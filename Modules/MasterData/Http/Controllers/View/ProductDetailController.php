@@ -13,7 +13,7 @@ class ProductDetailController extends Controller
      
     public function __construct()
     {
-        // $this->middleware(['auth']);
+        $this->middleware(['auth']);
         $this->breadcrumbs = [
             ['href' => url('/'), 'text' => 'mdi-home'],
             ['href' => route('product-details.index'), 'text' => 'Master Data'],

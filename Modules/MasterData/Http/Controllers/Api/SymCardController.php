@@ -39,12 +39,12 @@ class SymCardController extends Controller
             $data->save();
 
             log_activity(
-                'Tambah SymCards ' . $data->title,
+                'Tambah SymCard ' . $data->title,
                 $data
             );
 
             DB::commit();
-            return response_json(true, null, 'SymCards berhasil disimpan.', $data);
+            return response_json(true, null, 'SymCard berhasil disimpan.', $data);
         } catch (\Exception $e) {
             DB::rollback();
             return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
@@ -76,13 +76,13 @@ class SymCardController extends Controller
             $sym_card->save();
 
             log_activity(
-                'Ubah SymCards ' . $sym_card->title,
+                'Ubah SymCard ' . $sym_card->title,
                 $sym_card
             );
 
 
             DB::commit();
-            return response_json(true, null, 'SymCards berhasil disimpan.', $sym_card);
+            return response_json(true, null, 'SymCard berhasil disimpan.', $sym_card);
         } catch (\Exception $e) {
             DB::rollback();
             return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
@@ -96,13 +96,13 @@ class SymCardController extends Controller
         DB::beginTransaction();
         try {
             log_activity(
-                'Hapus SymCards ' . $sym_card->title,
+                'Hapus SymCard ' . $sym_card->title,
                 $sym_card
             );
             
             $sym_card->delete();
             DB::commit();
-            return response_json(true, null, 'SymCards property dihapus.');
+            return response_json(true, null, 'SymCard property dihapus.');
         } catch (\Exception $e) {
             DB::rollback();
             return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
