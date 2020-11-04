@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Support\Facades\Hash;
 use Spatie\Activitylog\Traits\CausesActivity;
+use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable /*implements MustVerifyEmail*/
 {
@@ -16,6 +17,7 @@ class User extends Authenticatable /*implements MustVerifyEmail*/
     use Sluggable;
     use SoftDeletes;
     use CausesActivity;
+    use HasApiTokens;
 
     /**
      * The table associated with the model.

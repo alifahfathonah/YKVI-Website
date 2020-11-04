@@ -50,19 +50,10 @@
                             :clipped="$vuetify.breakpoint.lgAndUp">
                             <v-img
                                 height="104px"
-                                src="https://cdn.pixabay.com/photo/2019/12/16/17/13/berlin-4699765_960_720.jpg"
+                                src="https://cdn.pixabay.com/photo/2020/09/14/22/27/river-5572289_960_720.jpg"
                             >
-                                <v-card-title class="white--text mt-5">
-                                    <v-avatar size="40">
-                                        <!-- <img
-                                            alt="user"
-                                            src="https://cdn.pixabay.com/photo/2020/06/24/19/12/cabbage-5337431_1280.jpg"
-                                        > -->
-                                    </v-avatar>
-                                    <p>
-                                        {{ Auth::user()->name ?? '' }}
-                                    </p>
-                                </v-card-title>
+                                <br>
+                                <h3 class="white--text mt-4 text-center" style="font-weight: normal">{{ Auth::user()->name }}</h3>
                             </v-img>
 
                             @include('core::components.main_menu')
