@@ -25,8 +25,8 @@ if (mix.inProduction()) {
     mix.disableNotifications();
     mix.version();
 }
-mix.js('resources/js/app.js', 'public/js')
-   .sass('resources/sass/app.scss', 'public/css');
+mix.js('resources/js/app.js', 'web/public/js')
+   .sass('resources/sass/app.scss', 'web/public/css');
 
 
 mix.webpackConfig({
@@ -34,6 +34,6 @@ mix.webpackConfig({
         new webpack.IgnorePlugin(/^\.\/locale$/, /moment$/)
     ],
     output: {
-        chunkFilename: mix.inProduction() ? 'public/dist/[name].[chunkhash].js' : 'public/chunks/[name].js',
+        chunkFilename: mix.inProduction() ? 'web/public/dist/[name].[chunkhash].js' : 'web/public/chunks/[name].js',
     }
 });
