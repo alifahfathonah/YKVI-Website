@@ -13,9 +13,13 @@ class SymCardController extends Controller
     public function index()
     {
         $data = SymCard::latest()->first();
-        $data->description = strip_tags($data->description);
-        $data->url_sym_card_image = get_file_url('public', 'app/public/sym_card/sym_card_image/' . $data->sym_card_image);
+        if ($data) {
+	        $data->description = strip_tags($data->description);
+	        $data->url_sym_card_image = get_file_url('public', 'app/public/sym_card/sym_card_image/' . $data->sym_card_image);
 
-        return response_json(true, null, 'Data retrieved.', $data);
+	        return response_json(true, null, 'Data retrieved.', $data);
+        } else {
+	        return response_json(null, true, 'No data exist.', null);
+        }
     }
 }
