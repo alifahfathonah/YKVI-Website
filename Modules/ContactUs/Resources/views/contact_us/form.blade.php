@@ -67,6 +67,14 @@
                 :disabled="field_state"
             ></v-textarea>
         </validation-provider>
+        
+        <v-btn
+            class="mt-4"
+            outlined 
+            :disabled="field_state"
+            :href="redirectUri">
+            Kembali
+        </v-btn>
     </form>
 
     <v-snackbar

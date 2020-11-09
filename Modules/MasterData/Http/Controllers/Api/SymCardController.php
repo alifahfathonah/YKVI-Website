@@ -127,8 +127,8 @@ class SymCardController extends Controller
         return Validator::make($request->all(), [
             'title' => 'bail|required',
             'description' => 'bail|required',
-            'sym_card_image' => 'bail|required',
             'link_embed_youtube' => 'bail|required',
+            'sym_card_image' => 'bail|nullable',
         ]);
     }
 

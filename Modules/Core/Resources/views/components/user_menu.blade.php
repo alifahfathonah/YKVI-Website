@@ -22,18 +22,16 @@
             </v-btn>
         </template>
         <v-list>
-            <v-list-item>
-                <v-list-item-avatar>
-                    <v-avatar color="indigo" size="40">
-                        <v-icon dark>
-                            mdi-account-circle
-                        </v-icon>
-                    </v-avatar>
-                </v-list-item-avatar>
-                <v-list-item-content>
-                    <v-list-item-title class="title">
+            <v-list-item class="my-3">
+                <v-avatar color="indigo" size="60">
+                    <v-icon size="50" dark>
+                        mdi-account-circle
+                    </v-icon>
+                </v-avatar>
+                <v-list-item-content class="ml-4">
+                    <h4>
                         {{ Auth::user()->name ?? '' }}
-                    </v-list-item-title>
+                    </h4>
                     <v-list-item-subtitle>{{ Auth::user()->email ?? '' }}</v-list-item-subtitle>
                 </v-list-item-content>
             </v-list-item>

@@ -1,5 +1,11 @@
 @extends('core::layouts.master')
 
+@push('table_slot')
+<template v-slot:item.email="{ item }">
+    <a :href="'mailto:' + item.email">@{{ item.email }}</a>
+</template>
+@endpush
+
 @section('content')
     <v-row
 	    class="px-md-4 px-sm-2">

@@ -2,7 +2,7 @@
 
 @section('content')
     <br>
-    <h1>Selamat Datang, Administrator</h1>
+    <h1>Selamat Datang, {{ Auth::user()->name }}</h1>
     <br>
     <br>
     <br>

@@ -1,5 +1,11 @@
 @extends('core::layouts.master')
 
+@push('table_slot')
+<template v-slot:item.link_url_redirect="{ item }">
+    <a :href="item.link_url_redirect" target="_blank">@{{ item.link_url_redirect }}</a>
+</template>
+@endpush
+
 @section('content')
     <v-row
 	    class="px-md-4 px-sm-2">
