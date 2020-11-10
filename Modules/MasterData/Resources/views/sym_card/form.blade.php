@@ -48,7 +48,7 @@
             </a>
         </div>
         
-        <validation-provider rules="required" name="Link Embed Youtube" v-slot="{ errors }">
+        <validation-provider name="Link Embed Youtube" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.link_embed_youtube"
@@ -56,8 +56,6 @@
                 name="link_embed_youtube"
                 clearable
                 clear-icon="mdi-eraser-variant"
-                hint="* harus diisi"
-                :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
             ></v-text-field>
