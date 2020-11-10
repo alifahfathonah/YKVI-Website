@@ -63,7 +63,7 @@
                 <v-btn
                     class="mr-4"
                     dark
-                    color="red darken-3"
+                    color="#cd4b3f"
                     block
                     type="submit"
                     @click.prevent="submitForm"

@@ -35,7 +35,8 @@
                                         <v-row>
                                             <v-col
                                                 lg="7"
-                                                class="red darken-3 d-none d-md-flex justify-center align-center"
+                                                class="d-none d-md-flex justify-center align-center"
+                                                style="background-color: #cd4b3f"
                                             >
                                                 <div class="d-none d-sm-block">
                                                     <div class="d-flex align-center pa-10">

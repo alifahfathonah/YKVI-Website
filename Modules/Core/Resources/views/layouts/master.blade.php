@@ -22,12 +22,12 @@
                         <v-app-bar
                             app
                             :clipped-left="$vuetify.breakpoint.lgAndUp"
-                            color="red darken-3"
+                            color="#cd4b3f"
                             elevation="5"
                         >
                             <v-toolbar-title
                                 class="d-flex align-content-center flex-wrap white--text">
-                                <a href="{{ url('/') }}" class="ml-2 white--text text-decoration-none">{{ config('app.name', 'Laravel') }}</a>
+                                <a href="{{ route('dashboard.index') }}" class="ml-2 white--text text-decoration-none">{{ config('app.name', 'Laravel') }}</a>
                             </v-toolbar-title>
                             
                             <v-app-bar-nav-icon
