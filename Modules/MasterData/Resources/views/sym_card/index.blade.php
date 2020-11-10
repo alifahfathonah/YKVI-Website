@@ -18,11 +18,15 @@
                             </v-list-tem-content>
                             <v-list-item-content>
                                 <h4 class="my-2">Gambar</h4>
-                                <v-img
-                                    max-height="160"
-                                    max-width="250"
-                                    src="{{ $data->url_sym_card_image }}"
-                                ></v-img>
+                                @if($data->url_sym_card_image)
+                                    <v-img
+                                        max-height="160"
+                                        max-width="250"
+                                        src="{{ $data->url_sym_card_image }}"
+                                    ></v-img>
+                                @else
+                                    <span>-</span>
+                                @endif
                             </v-list-item-content>
                             <v-list-item-content>
                                 <h4 class="my-2">Link Embed Youtube</h4>
