@@ -29,30 +29,10 @@ class ELearningController extends Controller
      */
     public function index()
     {
-        $table_headers = [
-            [
-                "text" => 'Judul',
-                "align" => 'center',
-                "sortable" => false,
-                "value" => 'title',
-            ],
-            [
-                "text" => 'Link URL',
-                "align" => 'center',
-                "sortable" => false,
-                "value" => 'link_url_redirect',
-            ],
-            [
-                "text" => 'Terakhir Diubah',
-                "align" => 'center',
-                "sortable" => false,
-                "value" => 'last_update',
-            ]
-        ];
         return view('masterdata::e_learning.index')
-             ->with('page_title', 'E-Learning')
-             ->with('breadcrumbs', $this->breadcrumbs)
-             ->with('table_headers', $table_headers);
+            ->with('page_title', 'E-Learning')
+            ->with('breadcrumbs', $this->breadcrumbs)
+            ->with('data', ELearning::first() ?? '');
     }
 
     /**

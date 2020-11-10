@@ -1,46 +1,56 @@
 @extends('core::layouts.master')
 
-@push('table_slot')
-<template v-slot:item.link_url_redirect="{ item }">
-    <a :href="item.link_url_redirect" target="_blank">@{{ item.link_url_redirect }}</a>
-</template>
-@endpush
-
 @section('content')
     <v-row
-	    class="px-md-4 px-sm-2">
-    	<v-col cols="12">
-    		<v-card>
-    			<v-card-text>
-    				<table-component inline-template
-    					table-number
-    					with-actions
-    					uri="{{ route('e-learning.table') }}"
-    					:headers='@json($table_headers)'
-    					no-data-text="Tidak ada data ditemukan."
-    					no-results-text="Tidak ada data ditemukan."
-    					search-text="Pencarian"
-    					refresh-text="Muat Ulang"
-    					items-per-page-all-text="Semua"
-    					items-per-page-text="Tampilkan"
-    					page-text-locale="id"
-    					add-new-uri="{{ route('e-learning.create') }}"
-    					add-new-text="Tambah"
-    					add-new-color="light-blue lighten-2"
-    					edit-uri="e-learning.edit"
-    					edit-uri-parameter="slug"
-    					edit-text="Ubah"
-    					delete-uri="e-learning.destroy"
-    					delete-uri-parameter="slug"
-    					delete-text="Hapus"
-    					delete-confirmation-text="Apakah Anda yakin untuk menghapus data ini ?"
-    					delete-cancel-text="Batal"
-    					>
-    					
-    					@include('core::components.table')
-    				</table-component>
-			    </v-card-text>
-    		</v-card>
-    	</v-col>
+        class="px-md-4 px-sm-2">
+        <v-col cols="12">
+            <v-card>
+                <v-card-title>
+                    E-Learning
+                </v-card-title> 
+                <v-divider></v-divider> 
+                <v-card-text>
+                    @if ($data)
+                        <v-list-item>
+                            <v-list-item-content>
+                                <h4 class="my-2">Judul</h4>
+                                <v-list-item-title>{{ $data->title ?? '-' }}</v-list-item-title>
+                            </v-list-tem-content>
+                            <v-list-item-content>
+                                <h4 class="my-2">Link URL</h4>
+                                <a href="{{ $data->link_url_redirect }}" target="_blank">{{ $data->link_url_redirect }}</a>
+                            </v-list-tem-content>
+                            <v-list-item-content>
+                                <h4 class="my-2">Deskripsi</h4>
+                                <p>{!! $data->description ?? '-' !!}</p>
+                            </v-list-item-content>
+                        </v-list-item>
+                    @else
+                        <span class="ml-3">Tidak ada data e-learning</span>
+                    @endif
+                </v-card-text>
+                <v-card-actions>
+                    @if ($data)
+                        <v-btn
+                            class="mx-5 my-3"
+                            type="button"
+                            color="primary"
+                            href="{{ route('e-learning.edit',[$data->slug ?? '']) }}"
+                        >
+                            Ubah Data
+                        </v-btn>
+                    @else
+                        <v-btn
+                            class="mx-5 my-3"
+                            type="button"
+                            color="primary"
+                            href="{{ route('e-learning.create') }}"
+                        >
+                            Tambah Data
+                        </v-btn>
+                    @endif
+                </v-card-actions>
+            </v-card>
+        </v-col>
     </v-row>
 @endsection

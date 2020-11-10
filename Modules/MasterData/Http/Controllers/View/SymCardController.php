@@ -26,25 +26,16 @@ class SymCardController extends Controller
      */
     public function index()
     {
-        $table_headers = [
-            [
-                "text" => 'Judul',
-                "align" => 'center',
-                "sortable" => false,
-                "value" => 'title',
-            ],
-            [
-                "text" => 'Terakhir Diubah',
-                "align" => 'center',
-                "sortable" => false,
-                "value" => 'last_update',
-            ]
-           
-        ];
+        $data = SymCard::first();
+        if ($data) {
+            $data->url_sym_card_image = get_file_url('public', 'app/public/sym_card/sym_card_image/' . $data->sym_card_image);
+        }
+
         return view('masterdata::sym_card.index')
             ->with('page_title', 'SymCard')
             ->with('breadcrumbs', $this->breadcrumbs)
-            ->with('table_headers', $table_headers);
+            ->with('data', $data ?? '');
+
     }
 
     /**
