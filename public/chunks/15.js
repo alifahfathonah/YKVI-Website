@@ -1,15 +1,15 @@
 (window["webpackJsonp"] = window["webpackJsonp"] || []).push([[15],{
 
-/***/ "./Modules/MasterData/Resources/js/components/Product/Form.vue":
-/*!*********************************************************************!*\
-  !*** ./Modules/MasterData/Resources/js/components/Product/Form.vue ***!
-  \*********************************************************************/
+/***/ "./Modules/MasterData/Resources/js/components/Faq/Form.vue":
+/*!*****************************************************************!*\
+  !*** ./Modules/MasterData/Resources/js/components/Faq/Form.vue ***!
+  \*****************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./Modules/MasterData/Resources/js/components/Product/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Form.vue?vue&type=script&lang=js& */ "./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 var render, staticRenderFns
 
@@ -31,29 +31,29 @@ var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "Modules/MasterData/Resources/js/components/Product/Form.vue"
+component.options.__file = "Modules/MasterData/Resources/js/components/Faq/Form.vue"
 /* harmony default export */ __webpack_exports__["default"] = (component.exports);
 
 /***/ }),
 
-/***/ "./Modules/MasterData/Resources/js/components/Product/Form.vue?vue&type=script&lang=js&":
-/*!**********************************************************************************************!*\
-  !*** ./Modules/MasterData/Resources/js/components/Product/Form.vue?vue&type=script&lang=js& ***!
-  \**********************************************************************************************/
+/***/ "./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js&":
+/*!******************************************************************************************!*\
+  !*** ./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js& ***!
+  \******************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Modules/MasterData/Resources/js/components/Product/Form.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib??ref--4-0!../../../../../../node_modules/vue-loader/lib??vue-loader-options!./Form.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js&");
 /* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Form_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Modules/MasterData/Resources/js/components/Product/Form.vue?vue&type=script&lang=js&":
-/*!******************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Modules/MasterData/Resources/js/components/Product/Form.vue?vue&type=script&lang=js& ***!
-  \******************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./Modules/MasterData/Resources/js/components/Faq/Form.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -85,30 +85,20 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     dataUri: {
       type: String,
       "default": ''
-    },
-    deleteUri: {
-      type: String,
-      "default": "product-details.destroy"
-    },
-    deleteUriParameter: {
-      type: String,
-      "default": "slug"
     }
   },
   data: function data() {
     return {
       search_kategori: null,
       form_data: {
-        name: '',
-        description: '',
-        product_image: []
+        pertanyaan: '',
+        jawaban: '',
+        publish_status: 1
       },
       field_state: false,
       form_alert_state: false,
       form_alert_color: '',
-      form_alert_text: '',
-      prompt_delete: false,
-      delete_loader: false
+      form_alert_text: ''
     };
   },
   mounted: function mounted() {
@@ -125,13 +115,10 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
         axios.get(this.dataUri).then(function (response) {
           if (response.data.success) {
             var data = response.data.data;
-            console.log(data);
             _this.form_data = {
-              name: data.name,
-              description: data.description,
-              publish_status: data.publish_status,
-              product_details: data.product_details,
-              url_product_image: data.url_product_image
+              pertanyaan: data.question,
+              jawaban: data.answer,
+              publish_status: data.publish_status
             };
             _this.field_state = false;
           } else {
@@ -150,9 +137,9 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     },
     clearForm: function clearForm() {
       this.form_data = {
-        name: '',
-        description: '',
-        product_image: []
+        pertanyaan: '',
+        jawaban: '',
+        publish_status: ''
       };
       this.$refs.observer.reset();
     },
@@ -176,10 +163,12 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
 
       if (this.dataUri) {
         form_data.append("_method", "put");
-        form_data.append("description", this.form_data.description);
+        form_data.append("answer", this.form_data.jawaban);
+        form_data.append("publish_status", this.form_data.publish_status);
       }
 
-      form_data.append("description", this.form_data.description);
+      form_data.append("answer", this.form_data.jawaban);
+      form_data.append("publish_status", this.form_data.publish_status);
       axios.post(this.actionForm, form_data).then(function (response) {
         if (response.data.success) {
           _this3.form_alert_state = true;
@@ -199,39 +188,6 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
         _this3.form_alert_state = true;
         _this3.form_alert_color = 'error';
         _this3.form_alert_text = 'Oops, something went wrong. Please try again later.';
-      });
-    },
-    promptDeleteItem: function promptDeleteItem(item) {
-      this.prompt_delete = true;
-      this.selected = item;
-    },
-    deleteItem: function deleteItem() {
-      var _this4 = this;
-
-      this.delete_loader = true;
-      axios["delete"](this.ziggy(this.deleteUri, [this.selected[this.deleteUriParameter]]).url()).then(function (response) {
-        if (response.data.success) {
-          _this4.form_alert_state = true;
-          _this4.form_alert_color = 'success';
-          _this4.form_alert_text = response.data.message;
-          setTimeout(function () {
-            location.reload();
-          }, 2000);
-        } else {
-          _this4.field_state = false;
-          _this4.form_alert_state = true;
-          _this4.form_alert_color = 'error';
-          _this4.form_alert_text = response.data.message;
-        }
-
-        _this4.delete_loader = false;
-        _this4.prompt_delete = false;
-      })["catch"](function (error) {
-        _this4.form_alert = true;
-        _this4.form_alert_state = 'error';
-        _this4.form_alert_text = 'Oops, something went wrong. Please try again later.';
-        _this4.delete_loader = false;
-        _this4.prompt_delete = false;
       });
     }
   }

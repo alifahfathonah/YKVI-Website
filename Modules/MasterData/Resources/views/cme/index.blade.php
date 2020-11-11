@@ -1,5 +1,18 @@
 @extends('core::layouts.master')
 
+@push('table_slot')
+    <template v-slot:item.is_home="{ item }">
+        <template v-if="item.is_home == 'Video Pilihan'">
+            <v-chip color="green" text-color="white">
+                Video Pilihan
+            </v-chip>
+        </template>
+        <template v-if="item.is_home == '-'">
+            <span>-</span>
+        </template>
+    </template>
+@endpush
+
 @section('content')
     <v-row
 	    class="px-md-4 px-sm-2">

@@ -44,5 +44,9 @@ Route::prefix('backend')->group(function() {
 		Route::resource('sym-card', 'SymCardController')->only([
 			'index', 'create', 'edit'
 		]);
+
+		Route::resource('about-us', 'AboutUsController')->only([
+			'index', 'create', 'edit'
+		]);
 	});
 });

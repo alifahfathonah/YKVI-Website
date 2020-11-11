@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Cviebrock\EloquentSluggable\Sluggable;
 
-class Cme extends Model
+class AboutUs extends Model
 {
     use Sluggable, SoftDeletes;
 
@@ -15,7 +15,7 @@ class Cme extends Model
      *
      * @var string
      */
-    protected $table = 'ms_cmes';
+    protected $table = 'ms_about_us';
 
     /**
      * The attributes that are mass assignable.
@@ -23,20 +23,9 @@ class Cme extends Model
      * @var array
      */
     protected $fillable = [
-    	'type',
         'title',
-        'link_embed_youtube',
-        'link_url_zoom',
-        'is_home'
-    ];
-
-    /**
-     * The attributes that should be mutated to dates.
-     *
-     * @var array
-     */
-    protected $cast = [
-         'is_home' => 'boolean',
+    	'description',
+        'about_us_image',
     ];
 
     /**

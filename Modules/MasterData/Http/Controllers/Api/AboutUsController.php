@@ -5,11 +5,12 @@ namespace Modules\MasterData\Http\Controllers\Api;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
-use Modules\MasterData\Entities\Cme;
+use Modules\MasterData\Entities\AboutUs;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
-class CmeController extends Controller
+class AboutUsController extends Controller
 {
     /**
      * Store a newly created resource in storage.
@@ -24,34 +25,26 @@ class CmeController extends Controller
             return response_json(false, $validator->errors(), $validator->errors()->first());
         }
 
-        // Count Is Home Status
-        $is_home_count = Cme::where('is_home', 1)->count();
-        if ($request->is_home) {
-            if ($is_home_count >= 4) {
-                return response_json(false, '', 'Video pilihan telah dibatasi hanya untuk 4 video.');
-            }
-        }
-
         DB::beginTransaction();
         try {
-            $data = Cme::create($request->all());
-            
-            // Is Home Status
-            if ($request->is_home) {
-                $data->is_home = 1;
-            } else {
-                $data->is_home = 0;
+            $data = AboutUs::create($request->all());
+
+            if ($request->hasFile('about_us_image')) {
+                $file_name = $data->title .'-'. uniqid() . '.' . $request->file('about_us_image')->getClientOriginalExtension();
+                Storage::disk('public')->putFileAs('about_us/about_us_image', $request->file('about_us_image'), $file_name
+                );
+                $data->about_us_image = $file_name;
             }
 
             $data->save();
 
             log_activity(
-                'Tambah Cme ' . $data->title,
+                'Tambah About Us ' . $data->title,
                 $data
             );
 
             DB::commit();
-            return response_json(true, null, 'Cme berhasil disimpan.', $data);
+            return response_json(true, null, 'Data about us berhasil disimpan.', $data);
         } catch (\Exception $e) {
             DB::rollback();
             return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
@@ -61,10 +54,10 @@ class CmeController extends Controller
     /**
      * Update the specified resource in storage.
      * @param Request $request
-     * @param Cme $cme
+     * @param About Us $about_us
      * @return Renderable
      */
-    public function update(Request $request, Cme $cme)
+    public function update(Request $request, AboutUs $about_u)
     {
         $validator = $this->validateFormRequest($request);
 
@@ -72,34 +65,27 @@ class CmeController extends Controller
             return response_json(false, $validator->errors(), $validator->errors()->first());
         }
 
-        // Count Is Home Status
-        $is_home_count = Cme::where('is_home', 1)->where('id', '!=', $cme->id)->count();
-        if ($request->is_home) {
-            if ($is_home_count >= 4) {
-                return response_json(false, '', 'Video pilihan telah dibatasi hanya untuk 4 video.');
-            }
-        }
-
         DB::beginTransaction();
         try {
-            $cme->update($request->all());
+            $about_u->update($request->all());
 
-            // Is Home Status
-            if ($request->is_home) {
-                $cme->is_home = 1;
-            } else {
-                $cme->is_home = 0;
+            if ($request->hasFile('about_us_image')) {
+                $file_name = $request->title . '-' . uniqid() . '.' . $request->file('about_us_image')->getClientOriginalExtension();
+                Storage::disk('public')->putFileAs('about_us/about_us_image', $request->file('about_us_image'), $file_name
+                );
+                $about_u->about_us_image = $file_name;
+
             }
 
-            $cme->save();
+            $about_u->save();
 
             log_activity(
-                'Ubah Cme ' . $cme->title,
-                $cme
+                'Ubah About Us ' . $about_u->title,
+                $about_u
             );
             
             DB::commit();
-            return response_json(true, null, 'Cme berhasil disimpan.', $cme);
+            return response_json(true, null, 'Data about us berhasil disimpan.', $about_u);
         } catch (\Exception $e) {
             DB::rollback();
             return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
@@ -108,21 +94,46 @@ class CmeController extends Controller
 
     /**
      * Remove the specified resource from storage.
-     * @param Cme $cme
+     * @param About Us $about_us
      * @return Renderable
      */
-    public function destroy(Cme $cme)
+    public function destroy(AboutUs $about_us)
     {
         DB::beginTransaction();
         try {
             log_activity(
-                'Hapus Cme ' . $cme->title,
-                $cme
+                'Hapus About Us ' . $about_us->title,
+                $about_us
             );
 
-            $cme->delete();
+            $about_us->delete();
             DB::commit();
-            return response_json(true, null, 'Cme dihapus.');
+            return response_json(true, null, 'Data about us dihapus.');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+        }
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     * @param About Us $about_us
+     * @return Renderable
+     */
+    public function deleteImage(AboutUs $about_us)
+    {
+        DB::beginTransaction();
+        try {
+            log_activity(
+                'Hapus Gambar About Us ' . $about_us->about_us_image,
+                $about_us
+            );
+
+            $about_us->about_us_image = null;
+            $about_us->save();
+
+            DB::commit();
+            return response_json(true, null, 'Gambar untuk about us berhasil dihapus.');
         } catch (\Exception $e) {
             DB::rollback();
             return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
@@ -131,12 +142,13 @@ class CmeController extends Controller
 
     /**
      * Get the specified resource from storage.
-     * @param Cme $cme
+     * @param About Us $about_us
      * @return Renderable
      */
-    public function data(Cme $cme)
+    public function data(AboutUs $about_us)
     {
-        return response_json(true, null, 'Data retrieved', $cme);
+        $about_us->url_about_us_image = get_file_url('public', 'app/public/about_us/about_us_image/' . $about_us->about_us_image);
+        return response_json(true, null, 'Data retrieved', $about_us);
     }
 
     /**
@@ -148,9 +160,7 @@ class CmeController extends Controller
     {
         return Validator::make($request->all(), [
             'title' => 'bail|required|string|max:190',
-            'type' => 'bail|required',
-            'link_embed_youtube' => 'bail|required',
-            'link_url_zoom' => 'bail|required',
+            'description' => 'bail|required',
         ]);
     }
 
@@ -168,12 +178,11 @@ class CmeController extends Controller
             return response_json(false, 'Isian form salah', $validator->errors()->first());
         }
 
-        $query = Cme::query();
+        $query = AboutUs::query();
 
         if ($request->has('search') && $request->input('search')) {
             $query->where(function($subquery) use ($request) {
                 $subquery->orWhere('title', 'LIKE', '%' . $request->input('search') . '%');
-                $subquery->orWhere('type', 'LIKE', '%' . $request->input('search') . '%');
             });
         }
         
@@ -182,11 +191,6 @@ class CmeController extends Controller
 
         $data->getCollection()->transform(function($item) {
             $item->last_update = $item->updated_at->timezone(config('core.app_timezone', 'UTC'))->locale('id')->translatedFormat('d F Y H:i');
-            if ($item->is_home) {
-                $item->is_home = "Video Pilihan";
-            } else {
-                $item->is_home = "-";
-            }
             return $item;
         });
 

@@ -55,5 +55,12 @@ Route::prefix('backend')->group(function() {
 		Route::apiResource('sym-card', 'SymCardController')->only([
 			'store', 'update', 'destroy'
 		]);
+
+		Route::get('about-us/table', 'AboutUsController@table')->name('about-us.table');
+		Route::get('about-us/{about_us}/data', 'AboutUsController@data')->name('about-us.data');
+		Route::put('about-us/{about_us}/delete-image', 'AboutUsController@deleteImage')->name('about-us.delete-image');
+		Route::apiResource('about-us', 'AboutUsController')->only([
+			'store', 'update', 'destroy'
+		]);
 	});
 });

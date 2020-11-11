@@ -1,19 +1,5 @@
 <validation-observer v-slot="{ validate, reset }" ref="observer">
     <form method="post" enctype="multipart/form-data" ref="post-form">
-        <validation-provider rules="required" name="Tipe CME" v-slot="{ errors }">
-            <v-select
-                class="my-4"
-                v-model="form_data.type" 
-                :items="['Webinar', 'Live course', 'Live teaching']"
-                label="Tipe CME"
-                name="type"
-                hint="* harus diisi"
-                :persistent-hint="true"
-                :error-messages="errors"
-                :disabled="field_state"
-            ></v-select>
-        </validation-provider>
-
         <validation-provider rules="required" name="Judul" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
@@ -28,47 +14,37 @@
                 :disabled="field_state"
             ></v-text-field>
         </validation-provider>
+
+        <validation-provider v-slot="{ errors }" name="Deskripsi" rules="required">
+            <v-textarea 
+                class="my-4"
+                v-model="form_data.description"
+                name="description"
+                label="Deskripsi"
+                clearable
+                clear-icon="mdi-eraser-variant"
+                hint="* harus diisi"
+                :persistent-hint="true"
+                :error-messages="errors"
+                :disabled="field_state"
+            ></v-textarea>
+        </validation-provider>
         
-        <validation-provider rules="required" name="Link Embed Youtube" v-slot="{ errors }">
-            <v-text-field
-                class="mb-4"
-                v-model="form_data.link_embed_youtube"
-                label="Link Embed Youtube"
-                name="link_embed_youtube"
-                clearable
+        <div class="my-4">
+            <v-file-input
+                small-chips
+                accept="image/*"
+                name="about_us_image"
                 clear-icon="mdi-eraser-variant"
-                hint="* harus diisi"
-                :persistent-hint="true"
-                :error-messages="errors"
+                label="Gambar"
+                prepend-icon="mdi-camera"
                 :disabled="field_state"
-            ></v-text-field>
-        </validation-provider>
-
-        <validation-provider rules="required" name="Link Url Zoom" v-slot="{ errors }">
-            <v-text-field
-                class="mb-4"
-                v-model="form_data.link_url_zoom"
-                label="Link Url Zoom"
-                name="link_url_zoom"
-                clearable
-                clear-icon="mdi-eraser-variant"
-                hint="* harus diisi"
-                :persistent-hint="true"
-                :error-messages="errors"
-                :disabled="field_state"
-            ></v-text-field>
-        </validation-provider>
-
-        <v-switch
-            class="my-4"
-            v-model="form_data.is_home"
-            name="is_home"
-            label="Video pilihan"
-            :true-value="1"
-            :false-value="0"
-            inset
-            :disabled="field_state"
-        ></v-switch>
+            >
+            </v-file-input>
+            <a :href="form_data.url_about_us_image" target="_blank" v-if="form_data.about_us_image">
+                <small>Click here to view full image</small>
+            </a>
+        </div>
 
         <v-btn
         	class="mr-4 mt-5"

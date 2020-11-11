@@ -43,6 +43,12 @@ class CmeController extends Controller
                 "value" => 'title',
             ],
             [
+                "text" => 'Status',
+                "align" => 'center',
+                "sortable" => false,
+                "value" => 'is_home',
+            ],
+            [
                 "text" => 'Terakhir Diubah',
                 "align" => 'center',
                 "sortable" => false,

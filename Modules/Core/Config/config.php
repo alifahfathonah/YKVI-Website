@@ -23,6 +23,13 @@ return [
             'children' => [
                 [
                     'icon' => 'mdi-adjust',
+                    'text' => 'About Us',
+                    'uri' => 'about-us.index',
+                    'model' => false,
+                    'show' => true
+                ],
+                [
+                    'icon' => 'mdi-adjust',
                     'text' => 'Banners',
                     'uri' => 'banner.index',
                     'model' => false,
