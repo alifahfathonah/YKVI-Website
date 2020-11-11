@@ -2,7 +2,9 @@
 
 @section('content')
     <about-us-form
+        @if ($data)
         data-uri="{{ $data->slug }}"
+        @endif
         redirect-uri="{{ route('about-us.index') }}" 
         inline-template
     >
