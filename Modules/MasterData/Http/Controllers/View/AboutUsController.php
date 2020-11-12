@@ -60,11 +60,11 @@ class AboutUsController extends Controller
      */
     public function edit(AboutUs $about_u)
     {
-        $this->breadcrumbs[] = ['href' => route('about-us.edit', [ $about_u->slug ]), 'text' => 'Ubah About Us ' . $about_u->title];
+        $this->breadcrumbs[] = ['href' => route('about-us.edit', [ $about_u->slug ]), 'text' => 'Ubah About Us'];
 
         return view('masterdata::about_us.edit')
             ->with('data', $about_u)
-            ->with('page_title', 'Ubah About Us ' . $about_u->title)
+            ->with('page_title', 'Ubah About Us')
             ->with('breadcrumbs', $this->breadcrumbs);
     }
 }

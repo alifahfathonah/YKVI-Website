@@ -55,11 +55,11 @@ class SymCardController extends Controller
 
     public function edit(SymCard $sym_card)
     {
-        $this->breadcrumbs[] = ['href' => route('sym-card.edit', [ $sym_card->slug ]), 'text' => 'Ubah SymCard ' . $sym_card->title];
+        $this->breadcrumbs[] = ['href' => route('sym-card.edit', [ $sym_card->slug ]), 'text' => 'Ubah SymCard'];
 
         return view('masterdata::sym_card.edit')
             ->with('data', $sym_card)
-            ->with('page_title', 'Ubah SymCard ' . $sym_card->title)
+            ->with('page_title', 'Ubah SymCard')
             ->with('breadcrumbs', $this->breadcrumbs);
     }
 }

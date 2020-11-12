@@ -55,11 +55,11 @@ class ELearningController extends Controller
      */
     public function edit(ELearning $e_learning)
     {
-        $this->breadcrumbs[] = ['href' => route('e-learning.edit', [ $e_learning->slug ]), 'text' => 'Ubah E-Learning ' . $e_learning->title];
+        $this->breadcrumbs[] = ['href' => route('e-learning.edit', [ $e_learning->slug ]), 'text' => 'Ubah E-Learning'];
 
         return view('masterdata::e_learning.edit')
             ->with('data', $e_learning)
-            ->with('page_title', 'Ubah E-Learning ' . $e_learning->title)
+            ->with('page_title', 'Ubah E-Learning')
             ->with('breadcrumbs', $this->breadcrumbs);
     }
 }
