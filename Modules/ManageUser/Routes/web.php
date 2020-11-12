@@ -17,6 +17,10 @@ Route::prefix('backend')->group(function() {
 		    'index', 'create', 'edit'
 		]);
 	});
+
+	Route::prefix('change-password')->namespace('View')->group(function() {
+		Route::get('form', 'UserController@changePasswordForm')->name('change-password.form');
+	});
 });
 
 Route::prefix('auth')->namespace('Auth')->group(function() {

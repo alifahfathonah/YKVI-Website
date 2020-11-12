@@ -100,6 +100,11 @@ return [
     ],
     'user_menu' => [
         [  
+            'icon' => 'mdi-cog-outline',
+            'text' => 'Change Password',
+            'uri' => 'change-password.form',
+        ],
+        [  
             'icon' => 'mdi-power',
             'text' => 'Logout',
             'uri' => 'logout',

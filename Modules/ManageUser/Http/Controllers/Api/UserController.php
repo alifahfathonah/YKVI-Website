@@ -179,4 +179,27 @@ class UserController extends Controller
             "paginate" => "bail|required|numeric|in:10,20,50,100",
         ]);
     }
+
+    /**
+     * Update the specified resource in storage.
+     * @param Request $request
+     * @param User $user
+     * @return Renderable
+     */
+    public function changePassword(Request $request, User $user)
+    {
+        DB::beginTransaction();
+        try {
+            log_activity(
+                'Change password user ' . $user->name,
+                $user
+            );
+            $user->update($request->all());
+            DB::commit();
+            return response_json(true, null, 'Perubahan Password telah berhasil dilakukan.', $user);
+        } catch (\Exception $e) {
+            DB::rollback();
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+        }
+    }
 }

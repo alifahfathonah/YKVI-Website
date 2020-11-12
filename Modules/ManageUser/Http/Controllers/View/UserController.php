@@ -89,4 +89,17 @@ class UserController extends Controller
              ->with('page_title', 'Ubah User ' . $user->name)
              ->with('breadcrumbs', $this->breadcrumbs);
     }
+
+    /**
+     * Show the form for editing the specified resource.
+     * @param User $user
+     * @return Renderable
+     */
+    public function changePasswordForm()
+    {
+        $this->breadcrumbs[] = ['href' => route('change-password.form'), 'text' => 'Change Password'];
+        return view('manageuser::user.change_password')
+             ->with('page_title', 'Change Password ' . \Auth::user()->name)
+             ->with('breadcrumbs', $this->breadcrumbs);
+    }
 }

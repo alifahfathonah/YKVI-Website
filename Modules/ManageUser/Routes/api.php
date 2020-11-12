@@ -21,4 +21,8 @@ Route::prefix('backend')->group(function() {
 		    'store', 'update', 'destroy'
 		]);
 	});
+
+	Route::prefix('change-password')->namespace('Api')->group(function() {
+		Route::put('update/{user}', 'UserController@changePassword')->name('change-password.update');
+	});
 });

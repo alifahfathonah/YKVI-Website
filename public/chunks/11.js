@@ -90,6 +90,10 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     dataUri: {
       type: String,
       "default": ''
+    },
+    dataChangeUri: {
+      type: String,
+      "default": ''
     }
   },
   data: function data() {
@@ -140,6 +144,30 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
           _this.form_alert_text = response.data.message;
           _this.field_state = false;
         });
+      } else if (this.dataChangeUri) {
+        this.field_state = true;
+        axios.get(this.dataChangeUri).then(function (response) {
+          if (response.data.success) {
+            var data = response.data.data;
+            _this.form_data = {
+              nama: data.name,
+              email: data.email,
+              telepon: data.telepon,
+              grup_user_id: data.grup_user_id
+            };
+            _this.field_state = false;
+          } else {
+            _this.form_alert_state = true;
+            _this.form_alert_color = 'error';
+            _this.form_alert_text = response.data.message;
+            _this.field_state = false;
+          }
+        })["catch"](function (error) {
+          _this.form_alert_state = true;
+          _this.form_alert_color = 'error';
+          _this.form_alert_text = response.data.message;
+          _this.field_state = false;
+        });
       }
     },
     clearForm: function clearForm() {
@@ -147,7 +175,14 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
         nama: '',
         email: '',
         telepon: '',
-        grup_user_id: '',
+        password: '',
+        password_confirmation: ''
+      };
+      this.$refs.observer.reset();
+    },
+    clearFormChange: function clearFormChange() {
+      this.form_data = {
+        email: this.form_data.email,
         password: '',
         password_confirmation: ''
       };
@@ -173,6 +208,10 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
 
       if (this.dataUri) {
         form_data.append("_method", "put");
+      } else if (this.dataChangeUri) {
+        form_data.append("_method", "put");
+        form_data.append("password", this.form_data.password);
+        form_data.append("password_confirmation", this.form_data.password_confirmation);
       } else {
         form_data.append("password", this.form_data.password);
         form_data.append("password_confirmation", this.form_data.password_confirmation);

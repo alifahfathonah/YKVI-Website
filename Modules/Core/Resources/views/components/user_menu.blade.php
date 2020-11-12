@@ -23,7 +23,7 @@
         </template>
         <v-list>
             <v-list-item class="my-3">
-                <v-avatar color="indigo" size="60">
+                <v-avatar color="#52A2DD" size="60">
                     <v-icon size="50" dark>
                         mdi-account-circle
                     </v-icon>
@@ -45,6 +45,7 @@
                     v-for="(item, i) in menu"
                     :key="i"
                     :href="ziggy(item.uri).url()"
+                    class="my-1"
                 >
                     <v-list-item-icon>
                         <v-icon v-text="item.icon"></v-icon>
