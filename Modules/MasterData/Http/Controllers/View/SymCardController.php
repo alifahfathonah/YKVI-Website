@@ -26,7 +26,7 @@ class SymCardController extends Controller
      */
     public function index()
     {
-        $data = SymCard::first();
+        $data = SymCard::latest()->first();
         if ($data) {
             $data->url_sym_card_image = get_file_url('public', 'app/public/sym_card/sym_card_image/' . $data->sym_card_image);
         }

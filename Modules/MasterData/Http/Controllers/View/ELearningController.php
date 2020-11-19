@@ -32,7 +32,7 @@ class ELearningController extends Controller
         return view('masterdata::e_learning.index')
             ->with('page_title', 'E-Learning')
             ->with('breadcrumbs', $this->breadcrumbs)
-            ->with('data', ELearning::first() ?? '');
+            ->with('data', ELearning::latest()->first() ?? '');
     }
 
     /**

@@ -29,7 +29,7 @@ class AboutUsController extends Controller
      */
     public function index()
     {
-        $data = AboutUs::first();
+        $data = AboutUs::latest()->first();
         if ($data) {
             $data->url_about_us_image = get_file_url('public', 'app/public/about_us/about_us_image/' . $data->about_us_image);
         }
