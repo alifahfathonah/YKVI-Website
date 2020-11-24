@@ -27,6 +27,19 @@ class ProductController extends Controller
         return response_json(true, null, 'Data retrieved.', $data);
     }
 
+    public function detail(Request $request, $product)
+    {
+        $validator = $this->validateTableRequest($request);
+
+        if ($validator->fails()) {
+            return response_json(false, 'Get data failed.', $validator->errors()->first());
+        }
+
+        $data = Product::whereSlug($product)->with('product_details')->orderBy('created_at', 'desc')->first();
+
+        return response_json(true, null, 'Data retrieved.', $data);
+    }
+
     /**
      *
      * Validation Rules for Get Table Data

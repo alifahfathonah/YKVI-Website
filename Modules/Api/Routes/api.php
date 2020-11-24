@@ -19,6 +19,7 @@ Route::namespace('Frontend')->group(function() {
 	Route::get('about-us', 'AboutUsController@index')->name('about-us.index');
 	Route::get('e-learning/faq', 'FaqController@index')->name('faq.index');
 	Route::get('product', 'ProductController@index')->name('product.index');
+	Route::get('product/{product}', 'ProductController@detail')->name('product.detail');
 	Route::get('sym-card', 'SymCardController@index')->name('sym-card.index');
 	Route::post('contact-us/store', 'ContactUsController@store')->name('contact-us.store');
 });
