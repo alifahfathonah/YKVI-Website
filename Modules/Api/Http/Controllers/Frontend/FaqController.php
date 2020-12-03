@@ -18,7 +18,7 @@ class FaqController extends Controller
             return response_json(false, 'Get data failed.', $validator->errors()->first());
         }
 
-        $data = Faq::orderBy('created_at', 'desc')->get();
+        $data = Faq::where('publish_status', 1)->orderBy('created_at', 'desc')->get();
 
         $data->transform(function($item) {
             $item->answer = strip_tags($item->answer);
