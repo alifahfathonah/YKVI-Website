@@ -21,7 +21,6 @@ class FaqController extends Controller
         $data = Faq::where('publish_status', 1)->orderBy('created_at', 'desc')->get();
 
         $data->transform(function($item) {
-            $item->answer = strip_tags($item->answer);
             return $item;
         });
 

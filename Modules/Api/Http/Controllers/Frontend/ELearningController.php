@@ -14,7 +14,6 @@ class ELearningController extends Controller
     {
         $data = ELearning::latest()->first();
         if ($data) {
-	        $data->description = strip_tags($data->description);
 	        return response_json(true, null, 'Data retrieved.', $data);
         } else {
 	        return response_json(null, true, 'No data exist.', null);

@@ -14,7 +14,6 @@ class AboutUsController extends Controller
     {
         $data = AboutUs::latest()->first();
         if ($data) {
-	        $data->description = strip_tags($data->description);
             $data->url_about_us_image = get_file_url('public', 'app/public/about_us/about_us_image/' . $data->about_us_image);
 	        return response_json(true, null, 'Data retrieved.', $data);
         } else {
