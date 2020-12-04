@@ -21,6 +21,7 @@ class ProductController extends Controller
         $data = Product::with('product_details')->orderBy('created_at', 'desc')->get();
 
         $data->transform(function($item) {
+            $item->short_description = clean_string($item->description);
             return $item;
         });
 
@@ -36,6 +37,7 @@ class ProductController extends Controller
         }
 
         $data = Product::whereSlug($product)->with('product_details')->orderBy('created_at', 'desc')->first();
+        $data->short_description = clean_string($data->description);
 
         return response_json(true, null, 'Data retrieved.', $data);
     }
