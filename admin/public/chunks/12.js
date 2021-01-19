@@ -85,6 +85,10 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
       type: String,
       "default": ''
     },
+    slugUri: {
+      type: String,
+      "default": ''
+    },
     deleteUri: {
       type: String,
       "default": "about-us.delete-image"
@@ -100,6 +104,8 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
       form_data: {
         title: '',
         description: '',
+        title_en: '',
+        description_en: '',
         about_us_image: ''
       },
       field_state: false,
@@ -126,6 +132,8 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
             _this.form_data = {
               title: data.title,
               description: data.description,
+              title_en: data.title_en,
+              description_en: data.description_en,
               about_us_image: data.about_us_image,
               url_about_us_image: data.url_about_us_image
             };
@@ -148,6 +156,8 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
       this.form_data = {
         title: '',
         description: '',
+        title_en: '',
+        description_en: '',
         about_us_image: ''
       };
       this.$refs.observer.reset();
@@ -203,7 +213,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
       var _this4 = this;
 
       this.delete_loader = true;
-      axios.put(this.ziggy(this.deleteUri, [this.dataUri]).url()).then(function (response) {
+      axios.put(this.ziggy(this.deleteUri, [this.slugUri]).url()).then(function (response) {
         if (response.data.success) {
           _this4.form_alert_state = true;
           _this4.form_alert_color = 'success';

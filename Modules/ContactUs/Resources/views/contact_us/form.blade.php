@@ -1,10 +1,10 @@
 <validation-observer v-slot="{ validate, reset }" ref="observer">
     <form method="post" enctype="multipart/form-data" ref="post-form">
-        <validation-provider rules="required" name="Nama Pengirim" v-slot="{ errors }">
+        <validation-provider rules="required" name="{{ __('Sender Name') }}" v-slot="{ errors }">
             <v-text-field
             	class="my-4"
                 v-model="form_data.name"
-                label="Nama Pengirim"
+                label="{{ __('Sender Name') }}"
     			name="name"
                 :readonly="true"
 	    		:persistent-hint="true"
@@ -13,11 +13,11 @@
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider rules="required" name="Email Pengirim" v-slot="{ errors }">
+        <validation-provider rules="required" name="{{ __('Sender Email') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.email"
-                label="Email Pengirim"
+                label="{{ __('Sender Email') }}"
                 name="email"
                 :readonly="true"
                 :persistent-hint="true"
@@ -26,11 +26,11 @@
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider v-slot="{ errors }" name="Nomor Handphone" rules="required|max:15">
+        <validation-provider v-slot="{ errors }" name="{{ __('Phone Number') }}" rules="required|max:15">
             <v-text-field
                 class="my-4"
                 v-model="form_data.phone_number"
-                label="Nomor Handphone"
+                label="{{ __('Phone Number') }}"
                 name="phone_number"
                 :readonly="true"
                 :persistent-hint="true"
@@ -42,11 +42,11 @@
             </v-text-field>
         </validation-provider>
 
-        <validation-provider rules="required" name="Subject" v-slot="{ errors }">
+        <validation-provider rules="required" name="{{ __('Subject') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.subject"
-                label="Subject"
+                label="{{ __('Subject') }}"
                 name="subject"
                 :readonly="true"
                 :persistent-hint="true"
@@ -55,12 +55,12 @@
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider v-slot="{ errors }" name="Isi Pesan" rules="required">
+        <validation-provider v-slot="{ errors }" name="{{ __('Message') }}" rules="required">
             <v-textarea 
                 class="my-4"
                 v-model="form_data.message"
                 name="message"
-                label="Isi Pesan"
+                label="{{ __('Message') }}"
                 :readonly="true"
                 :persistent-hint="true"
                 :error-messages="errors"
@@ -73,7 +73,7 @@
             outlined 
             :disabled="field_state"
             :href="redirectUri">
-            Kembali
+            {{ __('Back') }}
         </v-btn>
     </form>
 

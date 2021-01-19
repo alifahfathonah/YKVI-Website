@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('backend')->group(function() {
+Route::middleware('setlocale')->prefix('backend')->group(function() {
 	Route::prefix('kelola-user')->namespace('Api')->group(function() {
 	    Route::get('user/table', 'UserController@table')->name('user.table');
 		Route::get('user/{user}/data', 'UserController@data')->name('user.data');

@@ -27,6 +27,14 @@ class ELearningController extends Controller
         DB::beginTransaction();
         try {
             $data = ELearning::create($request->all());
+
+            $request->merge([
+                'title' => $request->input('title_en'),
+                'description' => $request->input('description_en'),
+            ]);
+
+            $data_en = ELearning::on('mysqlEng')->create($request->all());
+
             $data->save();
 
             log_activity(
@@ -35,10 +43,10 @@ class ELearningController extends Controller
             );
 
             DB::commit();
-            return response_json(true, null, 'E-Learning berhasil disimpan.', $data);
+            return response_json(true, null, __('E-Learning') . ' ' .  __('saved successfully'), $data);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -62,16 +70,22 @@ class ELearningController extends Controller
             $e_learning->update($request->all());
             $e_learning->save();
 
+            $data_en = ELearning::on('mysqlEng')->where('id', $e_learning->id)->update([
+                'title' => $request->title_en,
+                'description' => $request->description_en,
+                'link_url_redirect' => $request->link_url_redirect
+            ]);
+
             log_activity(
                 'Ubah E-Learning ' . $e_learning->title,
                 $e_learning
             );
             
             DB::commit();
-            return response_json(true, null, 'E-Learning berhasil disimpan.', $e_learning);
+            return response_json(true, null, __('E-Learning') . ' ' .  __('saved successfully'), $e_learning);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -91,10 +105,10 @@ class ELearningController extends Controller
 
             $e_learning->delete();
             DB::commit();
-            return response_json(true, null, 'E-Learning dihapus.');
+            return response_json(true, null, __('E-Learning') . ' ' .  __('Deleted successfully'));
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Delete data failed, try again later.'));
         }
     }
 
@@ -105,6 +119,9 @@ class ELearningController extends Controller
      */
     public function data(ELearning $e_learning)
     {
+        $data = ELearning::on('mysqlEng')->where('id', $e_learning->id)->firstOrFail();
+        $e_learning->title_en = $data->title;
+        $e_learning->description_en = $data->description;
         return response_json(true, null, 'Data retrieved', $e_learning);
     }
 

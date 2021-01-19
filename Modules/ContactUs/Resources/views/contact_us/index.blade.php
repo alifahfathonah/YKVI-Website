@@ -17,19 +17,19 @@
     					with-actions
     					uri="{{ route('contact-us.table') }}"
     					:headers='@json($table_headers)'
-    					no-data-text="Tidak ada data ditemukan."
-    					no-results-text="Tidak ada data ditemukan."
-    					search-text="Pencarian"
-    					refresh-text="Muat Ulang"
-    					items-per-page-all-text="Semua"
-    					items-per-page-text="Tampilkan"
-    					page-text-locale="id"
+    					no-data-text="{{ __('Data Not Found') }}"
+    					no-results-text="{{ __('Data Not Found') }}"
+    					search-text="{{ __('Search') }}"
+    					refresh-text="{{ __('Refresh') }}"
+    					items-per-page-all-text="{{ __('All') }}"
+    					items-per-page-text="{{ __('Show') }}"
+    					page-text-locale="{{ __('en') }}"
     					edit-uri="contact-us.edit"
     					edit-uri-parameter="slug"
                         edit-text="Details"
                         edit-icon="mdi-eye"
-    					delete-confirmation-text="Apakah Anda yakin untuk menghapus data ini ?"
-    					delete-cancel-text="Batal"
+    					delete-confirmation-text="{{ __('Are you sure you want to delete this data ?') }}"
+    					delete-cancel-text="{{ __('Cancel') }}"
     					>
     					
     					@include('core::components.table')

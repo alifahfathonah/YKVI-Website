@@ -4,12 +4,12 @@
 <template v-slot:item.publish_status="{ item }">
     <template v-if="item.publish_status == 'Publish'">
         <v-chip color="green" text-color="white">
-            Publish
+            {{ __('Publish') }}
         </v-chip>
     </template>
     <template v-if="item.publish_status == 'Unpublish'">
         <v-chip color="warning" text-color="white">
-            Unpublish
+            {{ __('Unpublish') }}
         </v-chip>
     </template>
 </template>
@@ -26,24 +26,24 @@
     					with-actions
     					uri="{{ route('faq.table') }}"
     					:headers='@json($table_headers)'
-    					no-data-text="Tidak ada data ditemukan."
-    					no-results-text="Tidak ada data ditemukan."
-    					search-text="Pencarian"
-    					refresh-text="Muat Ulang"
-    					items-per-page-all-text="Semua"
-    					items-per-page-text="Tampilkan"
-    					page-text-locale="id"
+    					no-data-text="{{ __('Data Not Found') }}"
+    					no-results-text="{{ __('Data Not Found') }}"
+    					search-text="{{ __('Search') }}"
+    					refresh-text="{{ __('Refresh') }}"
+    					items-per-page-all-text="{{ __('All') }}"
+    					items-per-page-text="{{ __('Show') }}"
+    					page-text-locale="{{ __('en') }}"
     					add-new-uri="{{ route('faq.create') }}"
-    					add-new-text="Tambah"
+    					add-new-text="{{ __('Add') }}"
     					add-new-color="light-blue lighten-2"
     					edit-uri="faq.edit"
     					edit-uri-parameter="slug"
-    					edit-text="Ubah"
+    					edit-text="{{ __('Edit') }}"
     					delete-uri="faq.destroy"
     					delete-uri-parameter="slug"
-    					delete-text="Hapus"
-    					delete-confirmation-text="Apakah Anda yakin untuk menghapus data ini ?"
-    					delete-cancel-text="Batal"
+    					delete-text="{{ __('Delete') }}"
+    					delete-confirmation-text="{{ __('Are you sure you want to delete this data ?') }}"
+    					delete-cancel-text="{{ __('Cancel') }}"
     					>
     					
     					@include('core::components.table')

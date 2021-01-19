@@ -91,8 +91,10 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     return {
       search_kategori: null,
       form_data: {
-        pertanyaan: '',
-        jawaban: '',
+        question: '',
+        answer: '',
+        question_en: '',
+        answer_en: '',
         publish_status: 1
       },
       field_state: false,
@@ -116,8 +118,10 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
           if (response.data.success) {
             var data = response.data.data;
             _this.form_data = {
-              pertanyaan: data.question,
-              jawaban: data.answer,
+              question: data.question,
+              answer: data.answer,
+              question_en: data.question_en,
+              answer_en: data.answer_en,
               publish_status: data.publish_status
             };
             _this.field_state = false;
@@ -137,8 +141,10 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     },
     clearForm: function clearForm() {
       this.form_data = {
-        pertanyaan: '',
-        jawaban: '',
+        question: '',
+        answer: '',
+        question_en: '',
+        answer_en: '',
         publish_status: ''
       };
       this.$refs.observer.reset();
@@ -163,11 +169,13 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
 
       if (this.dataUri) {
         form_data.append("_method", "put");
-        form_data.append("answer", this.form_data.jawaban);
+        form_data.append("answer", this.form_data.answer);
+        form_data.append("answer_en", this.form_data.answer_en);
         form_data.append("publish_status", this.form_data.publish_status);
       }
 
-      form_data.append("answer", this.form_data.jawaban);
+      form_data.append("answer", this.form_data.answer);
+      form_data.append("answer_en", this.form_data.answer_en);
       form_data.append("publish_status", this.form_data.publish_status);
       axios.post(this.actionForm, form_data).then(function (response) {
         if (response.data.success) {

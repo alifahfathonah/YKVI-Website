@@ -23,6 +23,10 @@
 				type: String,
 				default: ''
 			},
+			slugUri: {
+				type: String,
+				default: ''
+			},
 			deleteUri: {
 	            type: String,
 	            default: "about-us.delete-image"
@@ -37,6 +41,8 @@
 			form_data: {
 				title: '',
 				description: '',
+				title_en: '',
+				description_en: '',
 				about_us_image: '',
 			},
 			field_state: false,
@@ -63,6 +69,8 @@
     		            		this.form_data = {
     		            			title: data.title,
     		            			description: data.description,
+    		            			title_en: data.title_en,
+    		            			description_en: data.description_en,
     		            			about_us_image: data.about_us_image,
     		            			url_about_us_image: data.url_about_us_image,
     		            		}
@@ -87,6 +95,8 @@
 				this.form_data = {
 					title: '',
 					description: '',
+					title_en: '',
+					description_en: '',
 					about_us_image: '',
 				}
 				this.$refs.observer.reset()
@@ -140,7 +150,7 @@
 	        },
 		    deleteItem() {
 	            this.delete_loader = true
-	            axios.put(this.ziggy(this.deleteUri, [this.dataUri]).url())
+	            axios.put(this.ziggy(this.deleteUri, [this.slugUri]).url())
 	                .then((response) => {
 	                    if (response.data.success) {
 	    		            this.form_alert_state = true

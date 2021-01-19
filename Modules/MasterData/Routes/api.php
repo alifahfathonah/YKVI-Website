@@ -12,7 +12,7 @@ use Illuminate\Http\Request;
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
-Route::prefix('backend')->group(function() {
+Route::middleware('setlocale')->prefix('backend')->group(function() {
 	Route::prefix('master-data')->namespace('Api')->group(function() {
 	    Route::get('faq/table', 'FaqController@table')->name('faq.table');
 		Route::get('faq/{faq}/data', 'FaqController@data')->name('faq.data');
@@ -47,6 +47,12 @@ Route::prefix('backend')->group(function() {
 		Route::get('product-details/table', 'ProductDetailController@table')->name('product-details.table');
 		Route::get('product-details/{product_detail}/data', 'ProductDetailController@data')->name('product-details.data');
 		Route::apiResource('product-details', 'ProductDetailController')->only([
+			'store', 'update', 'destroy'
+		]);
+
+		Route::get('product-category/table', 'ProductCategoryController@table')->name('product-category.table');
+		Route::get('product-category/{product_category}/data', 'ProductCategoryController@data')->name('product-category.data');
+		Route::apiResource('product-category', 'ProductCategoryController')->only([
 			'store', 'update', 'destroy'
 		]);
 

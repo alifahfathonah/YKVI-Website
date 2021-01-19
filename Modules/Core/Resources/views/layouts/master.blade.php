@@ -41,6 +41,65 @@
                                 <v-icon>mdi-bell-ring</v-icon>
                             </v-btn>
 
+                            <v-menu
+                                bottom
+                                rounded
+                                offset-y
+                            >
+                                <template v-slot:activator="{ on }">
+                                    <v-btn
+                                        icon
+                                        x-large
+                                        v-on="on"
+                                        class="mr-1"
+                                    >
+                                        @if(Lang::locale() == 'en')
+                                            <v-avatar size="30px">
+                                                <img src="https://www.countryflags.io/gb/shiny/64.png">
+                                            </v-avatar>
+                                        @else
+                                            <v-avatar size="30px">
+                                                <img src="https://www.countryflags.io/id/shiny/64.png">
+                                            </v-avatar>
+                                        @endif
+                                    </v-btn>
+                                </template>
+                                <v-list dense>
+                                    <v-list-item-group
+                                        color="primary"
+                                    >
+                                        <v-list-item
+                                            href="{{ route('set_locale', 'id') }}"
+                                        >
+                                            <v-list-item-icon>
+                                                <v-avatar size="25px">
+                                                    <img
+                                                        src="https://www.countryflags.io/id/shiny/64.png"
+                                                    >
+                                                </v-avatar>
+                                            </v-list-item-icon>
+                                            <v-list-item-content>
+                                                <v-list-item-title class="mr-5">Indonesia</v-list-item-title>
+                                            </v-list-item-content>
+                                        </v-list-item>
+                                        <v-list-item
+                                            href="{{ route('set_locale', 'en') }}"
+                                        >
+                                            <v-list-item-icon>
+                                                <v-avatar size="25px">
+                                                    <img
+                                                        src="https://www.countryflags.io/gb/shiny/64.png"
+                                                    >
+                                                </v-avatar>
+                                            </v-list-item-icon>
+                                            <v-list-item-content>
+                                                <v-list-item-title class="mr-5">English</v-list-item-title>
+                                            </v-list-item-content>
+                                        </v-list-item>
+                                    </v-list-item-group>
+                                </v-list>
+                            </v-menu>
+
                             @include('core::components.user_menu')
                         </v-app-bar>
                         

@@ -30,6 +30,8 @@
 			form_data: {
 				title: '',
 				description: '',
+				title_en: '',
+				description_en: '',
 				link_url_redirect: '',
 			},
 			field_state: false,
@@ -54,6 +56,8 @@
     		            		this.form_data = {
     		            			title: data.title,
     		            			description: data.description,
+    		            			title_en: data.title_en,
+    		            			description_en: data.description_en,
     		            			link_url_redirect: data.link_url_redirect,
     		            		}
 
@@ -75,8 +79,8 @@
     		},
 			clearForm() {
 				this.form_data = {
-					title: '',
-					description: '',
+					title_en: '',
+					description_en: '',
 					link_url_redirect: '',
 				}
 				this.$refs.observer.reset()
@@ -98,8 +102,10 @@
 	    		if (this.dataUri) {
 	    		    form_data.append("_method", "put");
 	    		    form_data.append("description", this.form_data.description)
+	    		    form_data.append("description_en", this.form_data.description_en)
 	    		}
     		    form_data.append("description", this.form_data.description)
+    		    form_data.append("description_en", this.form_data.description_en)
 
 	    		axios.post(this.actionForm, form_data)
 	    		    .then((response) => {

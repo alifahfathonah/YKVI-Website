@@ -18,7 +18,7 @@ class ProductController extends Controller
             return response_json(false, 'Get data failed.', $validator->errors()->first());
         }
 
-        $data = Product::with('product_details')->orderBy('created_at', 'desc')->get();
+        $data = Product::with('product_details', 'product_category')->orderBy('created_at', 'desc')->get();
 
         $data->transform(function($item) {
             $item->short_description = clean_string($item->description);
@@ -30,16 +30,43 @@ class ProductController extends Controller
 
     public function detail(Request $request, $product)
     {
+        $data = Product::whereSlug($product)->with('product_details')->orderBy('created_at', 'desc')->first();
+        if ($data) {
+            $data->short_description = clean_string($data->description);
+            return response_json(true, null, 'Data retrieved.', $data);
+        } else {
+            return response_json(null, true, 'No data exist.', null);
+        }
+    }
+
+    public function indexEng(Request $request)
+    {
         $validator = $this->validateTableRequest($request);
 
         if ($validator->fails()) {
             return response_json(false, 'Get data failed.', $validator->errors()->first());
         }
 
-        $data = Product::whereSlug($product)->with('product_details')->orderBy('created_at', 'desc')->first();
-        $data->short_description = clean_string($data->description);
+        $data = Product::on('mysqlEng')->with('product_details', 'product_category')->orderBy('created_at', 'desc')->get();
+
+        $data->transform(function($item) {
+            $item->short_description = clean_string($item->description);
+            return $item;
+        });
 
         return response_json(true, null, 'Data retrieved.', $data);
+    }
+
+    public function detailEng(Request $request, $product)
+    {
+        $data = Product::on('mysqlEng')->whereSlug($product)->with('product_details')->orderBy('created_at', 'desc')->first();
+
+        if ($data) {
+            $data->short_description = clean_string($data->description);
+            return response_json(true, null, 'Data retrieved.', $data);
+        } else {
+            return response_json(null, true, 'No data exist.', null);
+        }
     }
 
     /**

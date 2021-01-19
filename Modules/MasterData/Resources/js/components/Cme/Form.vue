@@ -29,6 +29,7 @@
 			search_kategori: null,
 			form_data: {
 				title: '',
+				title_en: '',
 				type: '',
 				link_embed_youtube: '',
 				link_url_zoom: '',
@@ -55,6 +56,7 @@
     		            		let data = response.data.data
     		            		this.form_data = {
     		            			title: data.title,
+    		            			title_en: data.title_en,
     		            			type: data.type,
     		            			link_embed_youtube: data.link_embed_youtube,
     		            			link_url_zoom: data.link_url_zoom,
@@ -79,7 +81,7 @@
     		},
 			clearForm() {
 				this.form_data = {
-					title: '',
+					title_en: '',
 					type: '',
 					link_embed_youtube: '',
 					link_url_zoom: '',

@@ -34,20 +34,26 @@ class AboutUsController extends Controller
                 Storage::disk('public')->putFileAs('about_us/about_us_image', $request->file('about_us_image'), $file_name
                 );
                 $data->about_us_image = $file_name;
+            } else {
+                $file_name = "";
             }
 
-            $data->save();
+            $request->merge([
+                'title' => $request->input('title_en'),
+                'description' => $request->input('description_en'),
+            ]);
 
-            log_activity(
-                'Tambah About Us ' . $data->title,
-                $data
-            );
+            $data_en = AboutUs::on('mysqlEng')->create($request->all());
+            $data_en->about_us_image = $data->about_us_image;
+
+            $data->save();
+            $data_en->save();
 
             DB::commit();
-            return response_json(true, null, 'Data about us berhasil disimpan.', $data);
+            return response_json(true, null, 'Data '. __('About us') . ' ' . __('saved successfully'), $data);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -74,21 +80,21 @@ class AboutUsController extends Controller
                 Storage::disk('public')->putFileAs('about_us/about_us_image', $request->file('about_us_image'), $file_name
                 );
                 $about_u->about_us_image = $file_name;
-
             }
 
-            $about_u->save();
+            $data = AboutUs::on('mysqlEng')->where('id', $about_u->id)->update([
+                'title' => $request->input('title_en'),
+                'description' => $request->input('description_en'),
+                'about_us_image' => $about_u->about_us_image
+            ]);
 
-            log_activity(
-                'Ubah About Us ' . $about_u->title,
-                $about_u
-            );
+            $about_u->save();
             
             DB::commit();
-            return response_json(true, null, 'Data about us berhasil disimpan.', $about_u);
+            return response_json(true, null, 'Data '. __('About Us') . ' '. __('saved successfully'), $about_u);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -101,17 +107,12 @@ class AboutUsController extends Controller
     {
         DB::beginTransaction();
         try {
-            log_activity(
-                'Hapus About Us ' . $about_us->title,
-                $about_us
-            );
-
             $about_us->delete();
             DB::commit();
-            return response_json(true, null, 'Data about us dihapus.');
+            return response_json(true, null, 'Data ' . __('About Us') . ' ' . __('Deleted successfully'));
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Delete data failed, try again later.'));
         }
     }
 
@@ -124,19 +125,14 @@ class AboutUsController extends Controller
     {
         DB::beginTransaction();
         try {
-            log_activity(
-                'Hapus Gambar About Us ' . $about_us->about_us_image,
-                $about_us
-            );
-
             $about_us->about_us_image = null;
             $about_us->save();
 
             DB::commit();
-            return response_json(true, null, 'Gambar untuk about us berhasil dihapus.');
+            return response_json(true, null, 'Gambar untuk '. __('About Us'). ' berhasil dihapus.');
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -147,7 +143,11 @@ class AboutUsController extends Controller
      */
     public function data(AboutUs $about_us)
     {
+        $data = AboutUs::on('mysqlEng')->where('id', $about_us->id)->firstOrFail();
+        $about_us->title_en = $data->title;
+        $about_us->description_en = $data->description;
         $about_us->url_about_us_image = get_file_url('public', 'app/public/about_us/about_us_image/' . $about_us->about_us_image);
+
         return response_json(true, null, 'Data retrieved', $about_us);
     }
 

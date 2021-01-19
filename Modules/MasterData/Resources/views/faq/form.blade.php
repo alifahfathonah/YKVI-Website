@@ -1,14 +1,14 @@
 <validation-observer v-slot="{ validate, reset }" ref="observer">
     <form method="post" enctype="multipart/form-data" ref="post-form">
-        <validation-provider rules="required" name="Pertanyaan" v-slot="{ errors }">
+        <validation-provider rules="required" name="{{ __('Question') }} (ID)" v-slot="{ errors }">
             <v-text-field
             	class="my-4"
-                v-model="form_data.pertanyaan"
-                label="Pertanyaan"
+                v-model="form_data.question"
+                label="{{ __('Question') }} (ID)"
     			name="question"
     			clearable
     			clear-icon="mdi-eraser-variant"
-	    		hint="* harus diisi"
+	    		hint="* {{ __('required') }}"
 	    		:persistent-hint="true"
 	    		:error-messages="errors"
 	    		:disabled="field_state"
@@ -17,17 +17,49 @@
 
         <v-row>
             <v-col cols="12">
-                <validation-provider v-slot="{ errors }" name="Jawaban" rules="required">
-                    <h3 class="font-weight-medium">Jawaban</h3>
+                <validation-provider v-slot="{ errors }" name="{{ __('Answer') }} (ID)" rules="required">
+                    <h4 class="font-weight-medium">{{ __('Answer') }}</h4>
                     <wysiwyg 
                         class="mt-1"
-                        v-model="form_data.jawaban"
+                        v-model="form_data.answer"
                         name="answer"
-                        label="Jawaban"
+                        label="{{ __('Answer') }} (ID)"
                         :error-messages="errors"
                         :disabled="field_state"
                     ></wysiwyg>
-                    <h5 class="mb-2 font-weight-medium">* harus diisi</h5>
+                    <h5 class="mb-2 font-weight-medium">* {{ __('required') }}</h5>
+                </validation-provider>
+            </v-col>
+        </v-row>
+
+        <validation-provider rules="required" name="{{ __('Question') }} (EN)" v-slot="{ errors }">
+            <v-text-field
+                class="my-4"
+                v-model="form_data.question_en"
+                label="{{ __('Question') }} (EN)"
+                name="question_en"
+                clearable
+                clear-icon="mdi-eraser-variant"
+                hint="* {{ __('required') }}"
+                :persistent-hint="true"
+                :error-messages="errors"
+                :disabled="field_state"
+            ></v-text-field>
+        </validation-provider>
+        
+        <v-row>
+            <v-col cols="12">
+                <validation-provider v-slot="{ errors }" name="{{ __('Answer') }} (EN)" rules="required">
+                    <h4 class="font-weight-medium">{{ __('Answer') }} (EN)</h4>
+                    <wysiwyg 
+                        class="mt-1"
+                        v-model="form_data.answer_en"
+                        name="answer_en"
+                        label="{{ __('Answer') }} (EN)"
+                        :error-messages="errors"
+                        :disabled="field_state"
+                    ></wysiwyg>
+                    <h5 class="mb-2 font-weight-medium">* {{ __('required') }}</h5>
                 </validation-provider>
             </v-col>
         </v-row>
@@ -36,7 +68,7 @@
             class="my-4"
             v-model="form_data.publish_status"
             name="publish_status"
-            label="Publish Status"
+            label="{{ __('Publish Status') }}"
             :true-value="1"
             :false-value="0"
             inset
@@ -50,7 +82,7 @@
             color="primary"
             @click="submitForm"
         >
-            simpan
+            {{ __('save') }}
             <template v-slot:loader>
                 <span class="custom-loader">
                   	<v-icon light>mdi-cached</v-icon>
@@ -62,7 +94,7 @@
 	        @click="clearForm"
 	        :disabled="field_state"
 	    >
-            hapus
+            {{ __('clear') }}
         </v-btn>
     </form>
 

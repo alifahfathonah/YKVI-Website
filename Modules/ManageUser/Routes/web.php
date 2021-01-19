@@ -11,7 +11,7 @@
 |
 */
 
-Route::prefix('backend')->group(function() {
+Route::middleware('setlocale')->prefix('backend')->group(function() {
 	Route::prefix('kelola-user')->namespace('View')->group(function() {
 	    Route::resource('user', 'UserController')->only([
 		    'index', 'create', 'edit'

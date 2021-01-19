@@ -14,7 +14,7 @@ Route::middleware('auth')->group(function() {
 	require __DIR__.'/api.php';
 });
 
-Route::prefix('backend')->group(function() {
+Route::middleware('setlocale')->prefix('backend')->group(function() {
 	Route::namespace('View')->group(function() {
 		Route::get('contact-us/{contact_us}/detail', 'ContactUsController@edit')->name('contact-us.edit');
 	    Route::resource('contact-us', 'ContactUsController')->only([

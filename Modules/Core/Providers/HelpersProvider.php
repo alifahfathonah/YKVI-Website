@@ -6,6 +6,17 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Modules\Core\Providers\CoreProvider;
+
+if (! function_exists('get_locale_route')) {
+    function get_locale_route($locale)
+    {
+        $current_url = request()->url();
+        $current_query = http_build_query(request()->except(['lc']));
+        $query_separator = empty(request()->except(['lc'])) ? '' : '&';
+        return $current_url . '?' . $current_query . $query_separator . 'lc=' . $locale;
+    }
+}
 
 if (! function_exists('decode_option')) {
     function decode_option($option, $as_array = true)
@@ -97,7 +108,7 @@ if (! function_exists('prepare_main_menu')) {
         $current_route = explode('.', Route::currentRouteName());
         array_pop($current_route);
 
-        $main_menu = config('core.main_menu');
+        $main_menu = core()->main_menu();
         $collection = collect($main_menu)->transform(function($item) use ($current_route) {
             if ($item['children']) {
                 $item['children'] = collect($item['children'])->transform(function($item) use ($current_route) {
@@ -255,5 +266,12 @@ if (! function_exists('log_activity')) {
             ->by($causer ?: (Auth::user() ?? null))
             ->withProperties($properties)
             ->log($description);
+    }
+}
+
+
+if (! function_exists('core')) {
+    function core() {
+        return new CoreProvider;
     }
 }

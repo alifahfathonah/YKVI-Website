@@ -1,6 +1,6 @@
 <main-menu-component
     inline-template
-    :menu='@json(config('core.user_menu', []))'>
+    :menu='@json(core()->user_menu())'>
     <v-menu
         bottom
         min-width="200px"

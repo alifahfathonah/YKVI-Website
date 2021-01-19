@@ -1,33 +1,52 @@
 <validation-observer v-slot="{ validate, reset }" ref="observer">
     <form method="post" enctype="multipart/form-data" ref="post-form">
-        <validation-provider rules="required" name="Nama Halaman" v-slot="{ errors }">
+        <validation-provider rules="required" name="{{ __('Page Name') }}" v-slot="{ errors }">
             <v-select
-                class="my-4"
-                v-model="form_data.page_name" 
+                class="mt-4"
+                v-model="form_data.page_name"
                 :items="['Home', 'E-Learning', 'CME', 'Product', 'SymCard', 'About Us', 'Contact Us']"
-                label="Menu"
+                label="{{ __('Page Name') }}"
                 name="page_name"
-                hint="* harus diisi"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
             ></v-select>
         </validation-provider>
 
-        <validation-provider rules="required" name="Judul Banner" v-slot="{ errors }">
-            <v-text-field
-                class="my-4"
-                v-model="form_data.banner_title"
-                label="Judul Banner"
-                name="banner_title"
-                clearable
-                clear-icon="mdi-eraser-variant"
-                hint="* harus diisi"
-                :persistent-hint="true"
-                :error-messages="errors"
-                :disabled="field_state"
-            ></v-text-field>
-        </validation-provider>
+        <v-row>
+            <v-col md="6">
+                <validation-provider rules="required" name="{{ __('Banner Title') }} (ID)" v-slot="{ errors }">
+                    <v-text-field
+                        v-model="form_data.banner_title"
+                        label="{{ __('Banner Title') }} (ID)"
+                        name="banner_title"
+                        clearable
+                        clear-icon="mdi-eraser-variant"
+                        hint="* {{ __('required') }}"
+                        :persistent-hint="true"
+                        :error-messages="errors"
+                        :disabled="field_state"
+                    ></v-text-field>
+                </validation-provider>
+            </v-col>
+            <v-col md="6">
+                <validation-provider rules="required" name="{{ __('Banner Title') }} (EN)" v-slot="{ errors }">
+                    <v-text-field
+                        v-model="form_data.banner_title_en"
+                        label="{{ __('Banner Title') }} (EN)"
+                        name="banner_title_en"
+                        clearable
+                        clear-icon="mdi-eraser-variant"
+                        hint="* {{ __('required') }}"
+                        :persistent-hint="true"
+                        :error-messages="errors"
+                        :disabled="field_state"
+                    ></v-text-field>
+                </validation-provider>
+            </v-col>
+        </v-row>
+
 
         <div class="mb-4">
             <v-file-input
@@ -36,13 +55,13 @@
                 accept="image/*"
                 name="banner_image"
                 clear-icon="mdi-eraser-variant"
-                label="Gambar Banner"
+                label="{{ __('Images') }}"
                 prepend-icon="mdi-camera"
                 :disabled="field_state"
             >
             </v-file-input>
             <a :href="form_data.url_banner_image" target="_blank" v-if="form_data.url_banner_image">
-                <small>Click here to view full image</small>
+                <small>{{ __('Click here to view full image') }}</small>
             </a>
         </div>
 
@@ -50,7 +69,7 @@
             class="my-4"
             v-model="form_data.publish_status"
             name="publish_status"
-            label="Publish Status"
+            label="{{ __('Publish Status') }}"
             :true-value="1"
             :false-value="0"
             inset
@@ -64,7 +83,7 @@
             color="primary"
             @click="submitForm"
         >
-            simpan
+            {{ __('save') }}
             <template v-slot:loader>
                 <span class="custom-loader">
                   	<v-icon light>mdi-cached</v-icon>
@@ -76,7 +95,7 @@
 	        @click="clearForm"
 	        :disabled="field_state"
 	    >
-            hapus
+            {{ __('clear') }}
         </v-btn>
     </form>
 

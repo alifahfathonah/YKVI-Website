@@ -16,10 +16,14 @@ class AboutUsController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->breadcrumbs = [
+    }
+
+    public function breadcrumbs()
+    {
+        return [
             ['href' => url('/'), 'text' => 'mdi-home'],
-            ['href' => route('about-us.index'), 'text' => 'Master Data'],
-            ['href' => route('about-us.index'), 'text' => 'About Us'],
+            ['href' => route('about-us.index'), 'text' => __('Master Data')],
+            ['href' => route('about-us.index'), 'text' => __('About Us')],
         ];
     }
 
@@ -29,14 +33,21 @@ class AboutUsController extends Controller
      */
     public function index()
     {
-        $data = AboutUs::latest()->first();
+        $data = AboutUs::latest()->first() ?? '';
         if ($data) {
             $data->url_about_us_image = get_file_url('public', 'app/public/about_us/about_us_image/' . $data->about_us_image);
+            if (\Lang::locale() == 'en'){
+                $data_eng = AboutUs::on('mysqlEng')->latest()->first() ?? '';
+                $data_eng->url_about_us_image = $data->url_about_us_image;
+                $data_eng->about_us_image = $data->about_us_image;
+                $data_eng->slug = $data->slug;
+                $data = $data_eng;
+            }
         }
 
         return view('masterdata::about_us.index')
-            ->with('page_title', 'About Us')
-            ->with('breadcrumbs', $this->breadcrumbs)
+            ->with('page_title', __('About Us'))
+            ->with('breadcrumbs', $this->breadcrumbs())
             ->with('data', $data ?? '');
     }
 
@@ -46,11 +57,11 @@ class AboutUsController extends Controller
      */
     public function create()
     {
-        $this->breadcrumbs[] = ['href' => route('about-us.create'), 'text' => 'Tambah About Us'];
+        $breadcrumbs[] = ['href' => route('about-us.create'), 'text' => __('Add') . ' ' . __('About Us')];
 
         return view('masterdata::about_us.create')
-            ->with('page_title', 'Tambah About Us')
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title', __('Add') . ' '. __('About Us'))
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs));
     }
 
     /**
@@ -60,11 +71,10 @@ class AboutUsController extends Controller
      */
     public function edit(AboutUs $about_u)
     {
-        $this->breadcrumbs[] = ['href' => route('about-us.edit', [ $about_u->slug ]), 'text' => 'Ubah About Us'];
-
+        $breadcrumbs[] = ['href' => route('about-us.edit', [ $about_u->slug ]), 'text' => __('Edit') . ' ' . __('About Us')];
         return view('masterdata::about_us.edit')
             ->with('data', $about_u)
-            ->with('page_title', 'Ubah About Us')
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title', __('Edit') . ' '. __('About Us'))
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs));
     }
 }

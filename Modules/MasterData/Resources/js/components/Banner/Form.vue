@@ -32,6 +32,7 @@
 			form_data: {
 				page_name:'',
 		    	banner_title:'',
+		    	banner_title_en:'',
 		    	banner_image:'',
 				publish_status: 1
 			},
@@ -57,6 +58,7 @@
     		            		this.form_data = {
 	            					page_name: data.page_name,
 	            			    	banner_title: data.banner_title,
+	            			    	banner_title_en: data.banner_title_en,
 	            			    	banner_image: data.banner_image,
 	            			    	url_banner_image: data.url_banner_image,
 	            			    	publish_status: data.publish_status,
@@ -84,6 +86,7 @@
 				this.form_data = {
 					page_name:'',
 			    	banner_title:'',
+			    	banner_title_en:'',
 			    	banner_image:'',
 			    	publish_status:'',
 				}

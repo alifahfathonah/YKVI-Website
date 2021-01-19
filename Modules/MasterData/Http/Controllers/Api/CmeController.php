@@ -34,14 +34,18 @@ class CmeController extends Controller
 
         DB::beginTransaction();
         try {
+            // Is Home Status
+            $request->merge([
+                'is_home' => ($request->is_home) ? 1 : 0,
+            ]);
+
             $data = Cme::create($request->all());
             
-            // Is Home Status
-            if ($request->is_home) {
-                $data->is_home = 1;
-            } else {
-                $data->is_home = 0;
-            }
+            $request->merge([
+                'title'   => $request->input('title_en'),
+            ]);
+
+            $data_en = Cme::on('mysqlEng')->create($request->all());
 
             $data->save();
 
@@ -51,10 +55,10 @@ class CmeController extends Controller
             );
 
             DB::commit();
-            return response_json(true, null, 'Cme berhasil disimpan.', $data);
+            return response_json(true, null, 'Cme ' . __('saved successfully'), $data);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -91,6 +95,11 @@ class CmeController extends Controller
                 $cme->is_home = 0;
             }
 
+            $data = Cme::on('mysqlEng')->where('id', $cme->id)->update([
+                'title'   => $request->input('title_en'),
+                'is_home' => $cme->is_home
+            ]);
+
             $cme->save();
 
             log_activity(
@@ -99,10 +108,10 @@ class CmeController extends Controller
             );
             
             DB::commit();
-            return response_json(true, null, 'Cme berhasil disimpan.', $cme);
+            return response_json(true, null, 'Cme ' . __('saved successfully'), $cme);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -120,12 +129,13 @@ class CmeController extends Controller
                 $cme
             );
 
+            $data_en = Cme::on('mysqlEng')->where('id', $cme->id)->delete();
             $cme->delete();
             DB::commit();
-            return response_json(true, null, 'Cme dihapus.');
+            return response_json(true, null, 'Cme ' .  __('Deleted successfully'));
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Delete data failed, try again later.'));
         }
     }
 
@@ -136,6 +146,8 @@ class CmeController extends Controller
      */
     public function data(Cme $cme)
     {
+        $data = Cme::on('mysqlEng')->where('id', $cme->id)->firstOrFail();
+        $cme->title_en = $data->title;
         return response_json(true, null, 'Data retrieved', $cme);
     }
 
@@ -168,7 +180,11 @@ class CmeController extends Controller
             return response_json(false, 'Isian form salah', $validator->errors()->first());
         }
 
-        $query = Cme::query();
+        if (\Session::get('lang') == 'id'){
+            $query = Cme::query();
+        } else{
+            $query = Cme::on('mysqlEng');
+        }
 
         if ($request->has('search') && $request->input('search')) {
             $query->where(function($subquery) use ($request) {
@@ -181,6 +197,8 @@ class CmeController extends Controller
                     ->paginate($request->input('paginate') ?? 10);
 
         $data->getCollection()->transform(function($item) {
+            $data_id = Cme::find($item->id);
+            $item->slug = $data_id->slug;
             $item->last_update = $item->updated_at->timezone(config('core.app_timezone', 'UTC'))->locale('id')->translatedFormat('d F Y H:i');
             if ($item->is_home) {
                 $item->is_home = "Video Pilihan";

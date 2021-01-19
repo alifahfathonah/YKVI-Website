@@ -1,33 +1,51 @@
 <validation-observer v-slot="{ validate, reset }" ref="observer">
     <form method="post" enctype="multipart/form-data" ref="post-form">
-        <validation-provider rules="required" name="Tipe CME" v-slot="{ errors }">
+        <validation-provider rules="required" name="{{ __('CME Type') }}" v-slot="{ errors }">
             <v-select
-                class="my-4"
+                class="mt-4"
                 v-model="form_data.type" 
                 :items="['Webinar', 'Live course', 'Live teaching']"
-                label="Tipe CME"
+                label="{{ __('CME Type') }}"
                 name="type"
-                hint="* harus diisi"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
             ></v-select>
         </validation-provider>
-
-        <validation-provider rules="required" name="Judul" v-slot="{ errors }">
-            <v-text-field
-                class="my-4"
-                v-model="form_data.title"
-                label="Judul"
-                name="title"
-                clearable
-                clear-icon="mdi-eraser-variant"
-                hint="* harus diisi"
-                :persistent-hint="true"
-                :error-messages="errors"
-                :disabled="field_state"
-            ></v-text-field>
-        </validation-provider>
+        
+        <v-row>
+            <v-col md="6">
+                <validation-provider rules="required" name="{{ __('Title') }} (ID)" v-slot="{ errors }">
+                    <v-text-field
+                        v-model="form_data.title"
+                        label="{{ __('Title') }} (ID)"
+                        name="title"
+                        clearable
+                        clear-icon="mdi-eraser-variant"
+                        hint="* {{ __('required') }}"
+                        :persistent-hint="true"
+                        :error-messages="errors"
+                        :disabled="field_state"
+                    ></v-text-field>
+                </validation-provider>
+            </v-col>
+            <v-col md="6">
+                <validation-provider rules="required" name="{{ __('Title') }} (EN)" v-slot="{ errors }">
+                    <v-text-field
+                        v-model="form_data.title_en"
+                        label="{{ __('Title') }} (EN)"
+                        name="title_en"
+                        clearable
+                        clear-icon="mdi-eraser-variant"
+                        hint="* {{ __('required') }}"
+                        :persistent-hint="true"
+                        :error-messages="errors"
+                        :disabled="field_state"
+                    ></v-text-field>
+                </validation-provider>
+            </v-col>
+        </v-row>
         
         <validation-provider rules="required" name="Link Embed Youtube" v-slot="{ errors }">
             <v-text-field
@@ -37,7 +55,7 @@
                 name="link_embed_youtube"
                 clearable
                 clear-icon="mdi-eraser-variant"
-                hint="* harus diisi"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
@@ -52,7 +70,7 @@
                 name="link_url_zoom"
                 clearable
                 clear-icon="mdi-eraser-variant"
-                hint="* harus diisi"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
@@ -63,7 +81,7 @@
             class="my-4"
             v-model="form_data.is_home"
             name="is_home"
-            label="Video pilihan"
+            label="{{ __('Featured Video') }}"
             :true-value="1"
             :false-value="0"
             inset
@@ -77,7 +95,7 @@
             color="primary"
             @click="submitForm"
         >
-            simpan
+            {{ __('save') }}
             <template v-slot:loader>
                 <span class="custom-loader">
                   	<v-icon light>mdi-cached</v-icon>
@@ -90,7 +108,7 @@
 	        @click="clearForm"
 	        :disabled="field_state"
 	    >
-            hapus
+            {{ __('clear') }}
         </v-btn>
     </form>
 

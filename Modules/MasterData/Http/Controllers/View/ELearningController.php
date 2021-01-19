@@ -16,10 +16,14 @@ class ELearningController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->breadcrumbs = [
+    }
+
+    public function breadcrumbs()
+    {
+        return [
             ['href' => url('/'), 'text' => 'mdi-home'],
-            ['href' => route('e-learning.index'), 'text' => 'Master Data'],
-            ['href' => route('e-learning.index'), 'text' => 'E-Learning'],
+            ['href' => route('e-learning.index'), 'text' => __('Master Data')],
+            ['href' => route('e-learning.index'), 'text' => __('E-Learning')],
         ];
     }
 
@@ -29,10 +33,18 @@ class ELearningController extends Controller
      */
     public function index()
     {
+        $data = ELearning::latest()->first() ?? '';
+        if ($data) {
+            if (\Lang::locale() == 'en'){
+                $data_eng = ELearning::on('mysqlEng')->latest()->first() ?? '';
+                $data_eng->slug = $data->slug;
+                $data = $data_eng;
+            }
+        }
         return view('masterdata::e_learning.index')
-            ->with('page_title', 'E-Learning')
-            ->with('breadcrumbs', $this->breadcrumbs)
-            ->with('data', ELearning::latest()->first() ?? '');
+            ->with('page_title', __('E-Learning'))
+            ->with('breadcrumbs', $this->breadcrumbs())
+            ->with('data', $data);
     }
 
     /**
@@ -41,11 +53,11 @@ class ELearningController extends Controller
      */
     public function create()
     {
-        $this->breadcrumbs[] = ['href' => route('e-learning.create'), 'text' => 'Tambah E-Learning'];
+        $breadcrumbs[] = ['href' => route('e-learning.create'), 'text' => __('Add') . ' ' . __('E-Learning')];
 
         return view('masterdata::e_learning.create')
-            ->with('page_title', 'Tambah E-Learning')
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title', __('Add') . ' ' . __('E-Learning'))
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs));
     }
 
     /**
@@ -55,11 +67,11 @@ class ELearningController extends Controller
      */
     public function edit(ELearning $e_learning)
     {
-        $this->breadcrumbs[] = ['href' => route('e-learning.edit', [ $e_learning->slug ]), 'text' => 'Ubah E-Learning'];
+        $breadcrumbs[] = ['href' => route('e-learning.edit', [ $e_learning->slug ]), 'text' =>  __('Edit') . ' ' . __('E-Learning')];
 
         return view('masterdata::e_learning.edit')
             ->with('data', $e_learning)
-            ->with('page_title', 'Ubah E-Learning')
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title',  __('Edit') . ' ' . __('E-Learning'))
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs));
     }
 }

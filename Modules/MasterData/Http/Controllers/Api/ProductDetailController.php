@@ -100,6 +100,7 @@ class ProductDetailController extends Controller
                 $product_detail
             );
             
+            $data_en = ProductDetail::on('mysqlEng')->where('id', $product_detail->id)->delete();
             $product_detail->delete();
             DB::commit();
             return response_json(true, null, 'Gambar produk berhasil dihapus.');

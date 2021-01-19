@@ -36,7 +36,16 @@ class SymCardController extends Controller
                 $data->sym_card_image = $file_name;
             }
 
+            $request->merge([
+                'title'   => $request->input('title_en'),
+                'description'   => $request->input('description_en'),
+            ]);
+
+            $data_en = SymCard::on('mysqlEng')->create($request->all());
+            $data_en->sym_card_image = $data->sym_card_image;
+
             $data->save();
+            $data_en->save();
 
             log_activity(
                 'Tambah SymCard ' . $data->title,
@@ -44,10 +53,10 @@ class SymCardController extends Controller
             );
 
             DB::commit();
-            return response_json(true, null, 'SymCard berhasil disimpan.', $data);
+            return response_json(true, null,  __('SymCard') . ' ' .  __('saved successfully'), $data);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -70,8 +79,13 @@ class SymCardController extends Controller
                 Storage::disk('public')->putFileAs('sym_card/sym_card_image', $request->file('sym_card_image'), $file_name
                 );
                 $sym_card->sym_card_image = $file_name;
-
             }
+
+            $data = SymCard::on('mysqlEng')->where('id', $sym_card->id)->update([
+                'title'          => $request->input('title_en'),
+                'description'    => $request->input('description_en'),
+                'sym_card_image' => $sym_card->sym_card_image,
+            ]);
 
             $sym_card->save();
 
@@ -82,10 +96,10 @@ class SymCardController extends Controller
 
 
             DB::commit();
-            return response_json(true, null, 'SymCard berhasil disimpan.', $sym_card);
+            return response_json(true, null,  __('SymCard') . ' ' .  __('saved successfully'), $sym_card);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -100,12 +114,14 @@ class SymCardController extends Controller
                 $sym_card
             );
             
+            $data_en = SymCard::on('mysqlEng')->where('id', $sym_card->id)->delete();
             $sym_card->delete();
+
             DB::commit();
-            return response_json(true, null, 'SymCard property dihapus.');
+            return response_json(true, null, __('SymCard') . ' ' . __('Deleted successfully'));
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(),  __('Delete data failed, try again later.'));
         }
     }
 
@@ -113,6 +129,9 @@ class SymCardController extends Controller
 
     public function data(SymCard $sym_card)
     {
+        $data = SymCard::on('mysqlEng')->where('id', $sym_card->id)->firstOrFail();
+        $sym_card->title_en = $data->title;
+        $sym_card->description_en = $data->description;
         $sym_card->url_sym_card_image = get_file_url('public', 'app/public/sym_card/sym_card_image/' . $sym_card->sym_card_image);
         return response_json(true, null, 'Data retrieved', $sym_card);
     }
@@ -145,7 +164,11 @@ class SymCardController extends Controller
             return response_json(false, 'Isian form salah', $validator->errors()->first());
         }
 
-        $query = SymCard::query();
+        if (\Session::get('lang') == 'id'){
+            $query = SymCard::query();
+        } else{
+            $query = SymCard::on('mysqlEng');
+        }
 
         if ($request->has('search') && $request->input('search')) {
             $query->where(function($subquery) use ($request) {
@@ -158,6 +181,8 @@ class SymCardController extends Controller
                     ->paginate($request->input('paginate') ?? 10);
 
         $data->getCollection()->transform(function($item) {
+            $data_id = Product::find($item->id);
+            $item->slug = $data_id->slug;
             $item->last_update = $item->updated_at->timezone(config('core.app_timezone', 'UTC'))->locale('id')->translatedFormat('d F Y H:i');
             if ($item->publish_status) {
                 $item->publish_status = "Publish";

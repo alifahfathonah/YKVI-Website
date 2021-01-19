@@ -31,8 +31,10 @@ class BannerController extends Controller
 
             if ($request->publish_status) {
                 $data->publish_status = 1;
+                $publish_status = 1;
             } else {
                 $data->publish_status = 0;
+                $publish_status = 0;
             }
 
             if ($request->hasFile('banner_image')) {
@@ -40,9 +42,20 @@ class BannerController extends Controller
                 Storage::disk('public')->putFileAs('banner/banner_image', $request->file('banner_image'), $file_name
                 );
                 $data->banner_image = $file_name;
-
+            } else {
+                $file_name = "";
             }
+
+            $request->merge([
+                'banner_title'   => $request->input('banner_title_en'),
+                'publish_status' => $publish_status,
+            ]);
+
+            $data_en = Banner::on('mysqlEng')->create($request->all());
+            $data_en->banner_image = $data->banner_image;
+
             $data->save();
+            $data_en->save();
 
             log_activity(
                 'Tambah banner ' . $data->banner_title,
@@ -50,10 +63,10 @@ class BannerController extends Controller
             );
 
             DB::commit();
-            return response_json(true, null, 'Banner berhasil disimpan.', $data);
+            return response_json(true, null,  __('Banner') . ' '. __('saved successfully'), $data);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -76,7 +89,6 @@ class BannerController extends Controller
                 Storage::disk('public')->putFileAs('banner/banner_image', $request->file('banner_image'), $file_name
                 );
                 $banner->banner_image = $file_name;
-
             }
 
             if ($request->publish_status) {
@@ -84,6 +96,13 @@ class BannerController extends Controller
             } else {
                 $banner->publish_status = 0;
             }
+
+            $data = Banner::on('mysqlEng')->where('id', $banner->id)->update([
+                'page_name'      => $request->input('page_name'),
+                'banner_title'   => $request->input('banner_title_en'),
+                'banner_image'   => $banner->banner_image,
+                'publish_status' => $banner->publish_status
+            ]);
 
             $banner->save();
 
@@ -94,10 +113,10 @@ class BannerController extends Controller
 
 
             DB::commit();
-            return response_json(true, null, 'Banner berhasil disimpan.', $banner);
+            return response_json(true, null, __('Banner') . ' '. __('saved successfully'), $banner);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -112,12 +131,13 @@ class BannerController extends Controller
                 $banner
             );
             
+            $data_en = Banner::on('mysqlEng')->where('id', $banner->id)->delete();
             $banner->delete();
             DB::commit();
-            return response_json(true, null, 'Banner property dihapus.');
+            return response_json(true, null, __('Banner') . ' ' . __('Deleted successfully'));
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Delete data failed, try again later.'));
         }
     }
 
@@ -125,6 +145,8 @@ class BannerController extends Controller
 
     public function data(Banner $banner)
     {
+        $data = Banner::on('mysqlEng')->where('id', $banner->id)->firstOrFail();
+        $banner->banner_title_en = $data->banner_title;
         $banner->url_banner_image = get_file_url('public', 'app/public/banner/banner_image/' . $banner->banner_image);
         return response_json(true, null, 'Data retrieved', $banner);
     }
@@ -156,7 +178,11 @@ class BannerController extends Controller
             return response_json(false, 'Isian form salah', $validator->errors()->first());
         }
 
-        $query = Banner::query();
+        if (\Session::get('lang') == 'id'){
+            $query = Banner::query();
+        } else{
+            $query = Banner::on('mysqlEng');
+        }
 
         if ($request->has('search') && $request->input('search')) {
             $query->where(function($subquery) use ($request) {
@@ -169,6 +195,8 @@ class BannerController extends Controller
                     ->paginate($request->input('paginate') ?? 10);
 
         $data->getCollection()->transform(function($item) {
+            $data_id = Banner::find($item->id);
+            $item->slug = $data_id->slug;
             $item->last_update = $item->updated_at->timezone(config('core.app_timezone', 'UTC'))->locale('id')->translatedFormat('d F Y H:i');
             if ($item->publish_status) {
                 $item->publish_status = "Publish";

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Modules\MasterData\Entities\Product;
+use Modules\MasterData\Http\Controllers\Helper\ProductCategoryHelper;
 
 class ProductController extends Controller
 {
@@ -16,10 +17,15 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->breadcrumbs = [
+        $this->helper = new ProductCategoryHelper;
+    }
+
+    public function breadcrumbs()
+    {
+        return [
             ['href' => url('/'), 'text' => 'mdi-home'],
-            ['href' => route('product.index'), 'text' => 'Master Data'],
-            ['href' => route('product.index'), 'text' => 'Product'],
+            ['href' => route('product.index'), 'text' => __('Master Data')],
+            ['href' => route('product.index'), 'text' => __('Product')],
         ];
     }
 
@@ -31,13 +37,19 @@ class ProductController extends Controller
     {
         $table_headers = [
             [
-                "text" => 'Nama Produk',
+                "text" => __('Product Name'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'name',
             ],
             [
-                "text" => 'Terakhir Diubah',
+                "text" => __('Product Category'),
+                "align" => 'center',
+                "sortable" => false,
+                "value" => 'category',
+            ],
+            [
+                "text" => __('Last Change'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'last_update',
@@ -45,8 +57,8 @@ class ProductController extends Controller
            
         ];
         return view('masterdata::product.index')
-             ->with('page_title', 'Product')
-             ->with('breadcrumbs', $this->breadcrumbs)
+             ->with('page_title', __('Product'))
+             ->with('breadcrumbs', $this->breadcrumbs())
              ->with('table_headers', $table_headers);
     }
 
@@ -56,11 +68,12 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $this->breadcrumbs[] = ['href' => route('product.create'), 'text' => 'Tambah Product'];
+        $breadcrumbs[] = ['href' => route('product.create'), 'text' => __('Add') . ' ' . __('Product')];
 
         return view('masterdata::product.create')
-            ->with('page_title', 'Tambah Product')
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title', __('Add') . ' ' . __('Product'))
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs))
+            ->with($this->helper->getHelper());
     }
 
     /**
@@ -70,11 +83,12 @@ class ProductController extends Controller
      */
     public function edit(Product $product)
     {
-        $this->breadcrumbs[] = ['href' => route('product.edit', [ $product->slug ]), 'text' => 'Ubah Product ' . $product->name];
+        $breadcrumbs[] = ['href' => route('product.edit', [ $product->slug ]), 'text' => __('Edit') . ' ' . __('Product') . ' ' . $product->name];
 
         return view('masterdata::product.edit')
             ->with('data', $product)
-            ->with('page_title', 'Ubah Product ' . $product->name)
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title', __('Edit') . ' ' . __('Product') . ' ' . $product->name)
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs))
+            ->with($this->helper->getHelper());
     }
 }

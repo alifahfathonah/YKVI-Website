@@ -6,14 +6,14 @@
         <v-col cols="12">
             <v-card>
                 <v-card-title>
-                    E-Learning
+                    {{ __('E-Learning') }}
                 </v-card-title> 
                 <v-divider></v-divider> 
                 <v-card-text>
                     @if ($data)
                         <v-list-item>
                             <v-list-item-content>
-                                <h4 class="my-2">Judul</h4>
+                                <h4 class="my-2">{{ __('Title') }}</h4>
                                 <v-list-item-title>{{ $data->title ?? '-' }}</v-list-item-title>
                             </v-list-tem-content>
                             <v-list-item-content>
@@ -21,12 +21,12 @@
                                 <a href="{{ $data->link_url_redirect }}" target="_blank">{{ $data->link_url_redirect }}</a>
                             </v-list-tem-content>
                             <v-list-item-content>
-                                <h4 class="my-2">Deskripsi</h4>
+                                <h4 class="my-2">{{ __('Description') }}</h4>
                                 <p>{!! $data->description ?? '-' !!}</p>
                             </v-list-item-content>
                         </v-list-item>
                     @else
-                        <span class="ml-3">Tidak ada data e-learning</span>
+                        <span class="ml-3">{{ __('Data Not Found') }}</span>
                     @endif
                 </v-card-text>
                 <v-card-actions>
@@ -37,7 +37,7 @@
                             color="primary"
                             href="{{ route('e-learning.edit',[$data->slug ?? '']) }}"
                         >
-                            Ubah Data
+                            {{ __('Edit Data') }}
                         </v-btn>
                     @else
                         <v-btn
@@ -46,7 +46,7 @@
                             color="primary"
                             href="{{ route('e-learning.create') }}"
                         >
-                            Tambah Data
+                            {{ __('Add New Data') }}
                         </v-btn>
                     @endif
                 </v-card-actions>

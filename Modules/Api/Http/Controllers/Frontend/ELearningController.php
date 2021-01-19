@@ -18,6 +18,15 @@ class ELearningController extends Controller
         } else {
 	        return response_json(null, true, 'No data exist.', null);
         }
+    }
 
+    public function indexEng()
+    {
+        $data = ELearning::on('mysqlEng')->latest()->first();
+        if ($data) {
+	        return response_json(true, null, 'Data retrieved.', $data);
+        } else {
+	        return response_json(null, true, 'No data exist.', null);
+        }
     }
 }

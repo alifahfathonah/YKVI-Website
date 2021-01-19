@@ -17,16 +17,19 @@ class FaqController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->breadcrumbs = [
-            ['href' => url('/'), 'text' => 'mdi-home'],
-            ['href' => route('faq.index'), 'text' => 'Master Data'],
-            ['href' => route('faq.index'), 'text' => 'Faq'],
-        ];
-
         $this->helper = new FaqHelper;
     }
 
-    /**
+    public function breadcrumbs()
+    {
+        return [
+            ['href' => url('/'), 'text' => 'mdi-home'],
+            ['href' => route('faq.index'), 'text' =>  __('Master Data')],
+            ['href' => route('faq.index'), 'text' =>  __('FAQ E-Learning')],
+        ];
+    }
+
+    /**.
      * Display a listing of the resource.
      * @return Renderable
      */
@@ -34,19 +37,19 @@ class FaqController extends Controller
     {
         $table_headers = [
             [
-                "text" => 'Pertanyaan',
+                "text" =>  __('Question'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'question',
             ],
             [
-                "text" => 'Publish Status',
+                "text" => __('Publish Status'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'publish_status',
             ],
             [
-                "text" => 'Terakhir Diubah',
+                "text" => __('Last Change'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'last_update',
@@ -54,8 +57,8 @@ class FaqController extends Controller
            
         ];
         return view('masterdata::faq.index')
-             ->with('page_title', 'FAQ E-Learning')
-             ->with('breadcrumbs', $this->breadcrumbs)
+             ->with('page_title',  __('FAQ E-Learning'))
+             ->with('breadcrumbs', $this->breadcrumbs())
              ->with('table_headers', $table_headers);
     }
 
@@ -65,11 +68,11 @@ class FaqController extends Controller
      */
     public function create()
     {
-        $this->breadcrumbs[] = ['href' => route('faq.create'), 'text' => 'Tambah Faq'];
+        $breadcrumbs[] = ['href' => route('faq.create'), 'text' => __('Add') . ' Faq'];
 
         return view('masterdata::faq.create')
-            ->with('page_title', 'Tambah Faq')
-            ->with('breadcrumbs', $this->breadcrumbs)
+            ->with('page_title', __('Add') . ' Faq')
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs))
             ->with($this->helper->getHelper());
     }
 
@@ -80,12 +83,12 @@ class FaqController extends Controller
      */
     public function edit(Faq $faq)
     {
-        $this->breadcrumbs[] = ['href' => route('faq.edit', [ $faq->slug ]), 'text' => 'Ubah Faq ' . $faq->pertanyaan];
+        $breadcrumbs[] = ['href' => route('faq.edit', [ $faq->slug ]), 'text' => __('Edit') . ' Faq'];
 
         return view('masterdata::faq.edit')
             ->with('data', $faq)
-            ->with('page_title', 'Ubah Faq ' . $faq->pertanyaan)
-            ->with('breadcrumbs', $this->breadcrumbs)
+            ->with('page_title', __('Edit') . ' Faq')
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs))
             ->with($this->helper->getHelper());
     }
 }

@@ -13,7 +13,7 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::prefix('backend')->group(function() {
+Route::middleware('setlocale')->prefix('backend')->group(function() {
 	Route::prefix('contact-us')->namespace('Api')->group(function() {
 	    Route::get('table', 'ContactUsController@table')->name('contact-us.table');
 		Route::get('{contact_us}/data', 'ContactUsController@data')->name('contact-us.data');

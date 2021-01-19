@@ -1,76 +1,76 @@
 <validation-observer v-slot="{ validate, reset }" ref="observer">
     <form method="post" enctype="multipart/form-data" ref="post-form">
-        <validation-provider rules="required" name="Nama Lengkap" v-slot="{ errors }">
+        <validation-provider rules="required" name="{{ __('Full Name') }}" v-slot="{ errors }">
             <v-text-field
             	class="my-4"
                 v-model="form_data.nama"
-                label="Nama Lengkap"
+                label="{{ __('Full Name') }}"
     			name="name"
     			clearable
     			clear-icon="mdi-eraser-variant"
-	    		hint="* harus diisi"
+	    		hint="* {{ __('required') }}"
 	    		:persistent-hint="true"
 	    		:error-messages="errors"
 	    		:disabled="field_state"
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider rules="required|email" name="Alamat Email" v-slot="{ errors }">
+        <validation-provider rules="required|email" name="{{ __('Email Address') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.email"
-                label="Alamat Email"
+                label="{{ __('Email Address') }}"
                 name="email"
                 clearable
                 clear-icon="mdi-eraser-variant"
-                hint="* harus diisi"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider :rules="{ required: true, max: 15, regex: /^\+\d*$/ }" name="Nomor Handphone" v-slot="{ errors }">
+        <validation-provider :rules="{ required: true, max: 15, regex: /^\+\d*$/ }" name="{{ __('Phone Number') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.telepon"
-                label="Nomor Handphone"
+                label="{{ __('Phone Number') }}"
                 name="telepon"
                 clearable
                 clear-icon="mdi-eraser-variant"
                 v-mask="'+##############'"
                 placeholder="+62812411111111"
-                hint="* harus diisi"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider v-if="!dataUri" rules="required|min:8" vid="password_confirmation" name="Password" v-slot="{ errors }">
+        <validation-provider v-if="!dataUri" rules="required|min:8" vid="password_confirmation" name="{{ __('Password') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.password"
                 :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show_password ? 'text' : 'password'"
                 @click:append="show_password = !show_password"
-                label="Password"
-                hint="* harus diisi"
+                label="{{ __('Password') }}"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider v-if="!dataUri" rules="required|confirmed:password_confirmation" name="Konfirmasi Password" v-slot="{ errors }">
+        <validation-provider v-if="!dataUri" rules="required|confirmed:password_confirmation" name="{{ __('Password Confirmation') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.password_confirmation"
                 :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show_password ? 'text' : 'password'"
                 @click:append="show_password = !show_password"
-                label="Konfirmasi Password"
-                hint="* harus diisi"
+                label="{{ __('Password Confirmation') }}"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
@@ -85,7 +85,7 @@
             color="primary"
             @click="submitForm"
         >
-            simpan
+            {{ __('save') }}
             <template v-slot:loader>
                 <span class="custom-loader">
                   	<v-icon light>mdi-cached</v-icon>
@@ -98,7 +98,7 @@
 	        @click="clearForm"
 	        :disabled="field_state"
 	    >
-            hapus
+            {{ __('clear') }}
         </v-btn>
     </form>
 

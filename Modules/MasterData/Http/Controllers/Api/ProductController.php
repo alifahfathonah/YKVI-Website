@@ -39,8 +39,22 @@ class ProductController extends Controller
                         'product_id'    => $data->id,
                         'product_image' => $file_name,
                     ]);
+                    // Product Detail English
+                    $product_detail_en = ProductDetail::on('mysqlEng')->Create([
+                        'product_id'    => $data->id,
+                        'product_image' => $file_name,
+                    ]);
+                    
                 }
             }
+
+            $request->merge([
+                'name' => $request->input('name_en'),
+                'description' => $request->input('description_en'),
+                'detail' => $request->input('detail_en'),
+            ]);
+
+            $data_en = Product::on('mysqlEng')->create($request->all());
 
             $data->save();
 
@@ -50,10 +64,10 @@ class ProductController extends Controller
             );
 
             DB::commit();
-            return response_json(true, null, 'Product berhasil disimpan.', $data);
+            return response_json(true, null, __('Product') . ' ' .  __('saved successfully'), $data);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -85,8 +99,20 @@ class ProductController extends Controller
                         'product_id'    => $product->id,
                         'product_image' => $file_name,
                     ]);
+
+                    $product_detail_en = ProductDetail::on('mysqlEng')->Create([
+                        'product_id'    => $product->id,
+                        'product_image' => $file_name,
+                    ]);
                 }
             }
+
+            $data_en = Product::on('mysqlEng')->where('id', $product->id)->update([
+                'name' => $request->name_en,
+                'description' => $request->description_en,
+                'detail' => $request->detail_en,
+                'category_id' => $product->category_id,
+            ]);
 
             $product->save();
 
@@ -96,10 +122,10 @@ class ProductController extends Controller
             );
             
             DB::commit();
-            return response_json(true, null, 'Product berhasil disimpan.', $product);
+            return response_json(true, null,  __('Product') . ' ' .  __('saved successfully'), $product);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -117,12 +143,13 @@ class ProductController extends Controller
                 $product
             );
 
+            $data_en = Product::on('mysqlEng')->where('id', $product->id)->delete();
             $product->delete();
             DB::commit();
-            return response_json(true, null, 'Product dihapus.');
+            return response_json(true, null, __('Product') . ' ' .  __('Deleted successfully'));
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Delete data failed, try again later.'));
         }
     }
 
@@ -133,6 +160,10 @@ class ProductController extends Controller
      */
     public function data(Product $product)
     {
+        $data = Product::on('mysqlEng')->where('id', $product->id)->firstOrFail();
+        $product->name_en = $data->name;
+        $product->description_en = $data->description;
+        $product->detail_en = $data->detail;
         $product->product_details = $product->product_details;
         return response_json(true, null, 'Data retrieved', $product);
     }
@@ -146,7 +177,7 @@ class ProductController extends Controller
     {
         return Validator::make($request->all(), [
             'name' => 'bail|required|string|max:190',
-            'description' => 'bail|required'
+            'description' => 'bail|required',
         ]);
     }
 
@@ -164,7 +195,13 @@ class ProductController extends Controller
             return response_json(false, 'Isian form salah', $validator->errors()->first());
         }
 
-        $query = Product::query();
+        if (\Session::get('lang') == 'id'){
+            $query = Product::query();
+        } else{
+            $query = Product::on('mysqlEng');
+        }
+        
+        $query->with('product_category');
 
         if ($request->has('search') && $request->input('search')) {
             $query->where(function($subquery) use ($request) {
@@ -176,6 +213,9 @@ class ProductController extends Controller
                     ->paginate($request->input('paginate') ?? 10);
 
         $data->getCollection()->transform(function($item) {
+            $data_id = Product::find($item->id);
+            $item->slug = $data_id->slug;
+            $item->category = $item->product_category->category_name;
             $item->last_update = $item->updated_at->timezone(config('core.app_timezone', 'UTC'))->locale('id')->translatedFormat('d F Y H:i');
             return $item;
         });

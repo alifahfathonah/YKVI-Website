@@ -1,42 +1,42 @@
 <validation-observer v-slot="{ validate, reset }" ref="observer">
     <form method="post" enctype="multipart/form-data" ref="post-form">
-        <validation-provider rules="required|email" name="Alamat Email" v-slot="{ errors }">
+        <validation-provider rules="required|email" name="{{ __('Email Address') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
             	v-model="form_data.email"
-                label="Alamat Email"
+                label="{{ __('Email Address') }}"
                 name="email"
-                hint="* harus diisi"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :readonly="true"
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider rules="required|min:8" vid="password_confirmation" name="Password" v-slot="{ errors }">
+        <validation-provider rules="required|min:8" vid="password_confirmation" name="{{ __('New Password') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.password"
                 :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show_password ? 'text' : 'password'"
                 @click:append="show_password = !show_password"
-                label="Password Baru"
-                hint="* harus diisi"
+                label="{{ __('New Password') }}"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"
             ></v-text-field>
         </validation-provider>
 
-        <validation-provider rules="required|confirmed:password_confirmation" name="Konfirmasi Password" v-slot="{ errors }">
+        <validation-provider rules="required|confirmed:password_confirmation" name="{{ __('New Password Confirmation') }}" v-slot="{ errors }">
             <v-text-field
                 class="my-4"
                 v-model="form_data.password_confirmation"
                 :append-icon="show_password ? 'mdi-eye' : 'mdi-eye-off'"
                 :type="show_password ? 'text' : 'password'"
                 @click:append="show_password = !show_password"
-                label="Konfirmasi Password Baru"
-                hint="* harus diisi"
+                label="{{ __('New Password Confirmation') }}"
+                hint="* {{ __('required') }}"
                 :persistent-hint="true"
                 :error-messages="errors"
                 :disabled="field_state"

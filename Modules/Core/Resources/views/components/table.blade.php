@@ -48,6 +48,7 @@
 		:options.sync="options"
 		:server-items-length="total_data"
 		:loading="loading"
+		@if(Session::get('lang') == 'id')
 	    :footer-props="{
 			showFirstLastPage: true,
 			firstIcon: 'mdi-chevron-double-left',
@@ -56,8 +57,20 @@
 			nextIcon: 'mdi-chevron-right',
 			itemsPerPageAllText: itemsPerPageAllText,
 			itemsPerPageText: itemsPerPageText,
-			pageText: pageTextLocale == 'en' ? 'Showing ' + from_data + ' - ' + to_data + ' from ' + total_data + ' data' : 'Menampilkan ' + from_data + ' - ' + to_data + ' dari total ' + total_data + ' data'
+			pageText: 'Menampilkan ' + from_data + ' - ' + to_data + ' dari total ' + total_data + ' data'
 	    }"
+	    @else
+	    :footer-props="{
+			showFirstLastPage: true,
+			firstIcon: 'mdi-chevron-double-left',
+			lastIcon: 'mdi-chevron-double-right',
+			prevIcon: 'mdi-chevron-left',
+			nextIcon: 'mdi-chevron-right',
+			itemsPerPageAllText: itemsPerPageAllText,
+			itemsPerPageText: itemsPerPageText,
+			pageText: 'Showing ' + from_data + ' - ' + to_data + ' from ' + total_data + ' data'
+	    }"
+	    @endif
     >
 		@foreach ($table_headers as $element)
 			<template v-slot:header.{{$element['value']}}="{ header }">

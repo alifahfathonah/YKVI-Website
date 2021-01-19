@@ -15,7 +15,7 @@ Route::middleware('auth')->group(function() {
 	require __DIR__.'/api.php';
 });
 
-Route::prefix('backend')->group(function() {
+Route::middleware('setlocale')->prefix('backend')->group(function() {
 	Route::prefix('master-data')->namespace('View')->group(function() {
 	    Route::resource('faq', 'FaqController')->only([
 			'index', 'create', 'edit'
@@ -38,6 +38,10 @@ Route::prefix('backend')->group(function() {
 		]);
 
 		Route::resource('product-details', 'ProductDetailController')->only([
+			'index', 'create', 'edit'
+		]);
+
+		Route::resource('product-category', 'ProductCategoryController')->only([
 			'index', 'create', 'edit'
 		]);
 

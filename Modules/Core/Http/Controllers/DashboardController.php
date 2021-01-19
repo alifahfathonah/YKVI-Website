@@ -25,4 +25,14 @@ class DashboardController extends Controller
     {
         return view('welcome');
     }
+
+    public function setLocale($locale)
+    {
+        if(\Session::has('lang')) {
+            $forget = \Session::forget('lang');
+        }
+        $put = \Session::put('lang', $locale);
+        
+        return redirect()->back();
+    }
 }

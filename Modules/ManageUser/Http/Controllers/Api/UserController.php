@@ -35,10 +35,10 @@ class UserController extends Controller
                 $data
             );
             DB::commit();
-            return response_json(true, null, 'User berhasil disimpan.', $data);
+            return response_json(true, null, __('User') . ' ' . __('saved successfully'), $data);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -64,10 +64,10 @@ class UserController extends Controller
             );
             $user->update($request->all());
             DB::commit();
-            return response_json(true, null, 'User berhasil disimpan.', $user);
+            return response_json(true, null, __('User') . ' ' . __('saved successfully'), $user);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -86,10 +86,10 @@ class UserController extends Controller
             );
             $user->delete();
             DB::commit();
-            return response_json(true, null, 'User berhasil dihapus.');
+            return response_json(true, null, 'Data ' . __('User') . ' ' . __('Deleted successfully'));
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Delete data failed, try again later.'));
         }
     }
 
@@ -196,10 +196,10 @@ class UserController extends Controller
             );
             $user->update($request->all());
             DB::commit();
-            return response_json(true, null, 'Perubahan Password telah berhasil dilakukan.', $user);
+            return response_json(true, null, __('Change password saved successfully'), $user);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 }

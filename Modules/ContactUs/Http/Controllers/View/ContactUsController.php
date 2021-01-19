@@ -16,9 +16,13 @@ class ContactUsController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->breadcrumbs = [
+    }
+
+    public function breadcrumbs()
+    {
+        return [
             ['href' => url('/'), 'text' => 'mdi-home'],
-            ['href' => route('contact-us.index'), 'text' => 'Contact Us'],
+            ['href' => route('contact-us.index'), 'text' => __('Contact Us')],
         ];
     }
 
@@ -30,31 +34,31 @@ class ContactUsController extends Controller
     {
         $table_headers = [
             [
-                "text" => 'Nama',
+                "text" => __('Sender Name'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'name',
             ],
             [
-                "text" => 'Email',
+                "text" => __('Sender Email'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'email',
             ],
             [
-                "text" => 'Nomor Handphone',
+                "text" => __('Phone Number'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'phone_number',
             ],
             [
-                "text" => 'Subject',
+                "text" => __('Subject'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'subject',
             ],
             [
-                "text" => 'Tanggal dikirim',
+                "text" => __('Received Date'),
                 "align" => 'center',
                 "sortable" => false,
                 "value" => 'last_update',
@@ -62,8 +66,8 @@ class ContactUsController extends Controller
            
         ];
         return view('contactus::contact_us.index')
-             ->with('page_title', 'Contact Us')
-             ->with('breadcrumbs', $this->breadcrumbs)
+             ->with('page_title', __('Contact Us'))
+             ->with('breadcrumbs', $this->breadcrumbs())
              ->with('table_headers', $table_headers);
     }
 
@@ -74,11 +78,11 @@ class ContactUsController extends Controller
      */
     public function edit(ContactUs $contact_us)
     {
-        $this->breadcrumbs[] = ['href' => route('contact-us.edit', [ $contact_us->slug ]), 'text' => 'Details Message'];
+        $breadcrumbs[] = ['href' => route('contact-us.edit', [ $contact_us->slug ]), 'text' => __('Message Detail')];
 
         return view('contactus::contact_us.edit')
             ->with('data', $contact_us)
-            ->with('page_title', 'Details Message ' . $contact_us->name)
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title', __('Message Detail') . ' ' . $contact_us->name)
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs));
     }
 }

@@ -113,6 +113,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
       form_data: {
         page_name: '',
         banner_title: '',
+        banner_title_en: '',
         banner_image: '',
         publish_status: 1
       },
@@ -138,6 +139,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
             _this.form_data = {
               page_name: data.page_name,
               banner_title: data.banner_title,
+              banner_title_en: data.banner_title_en,
               banner_image: data.banner_image,
               url_banner_image: data.url_banner_image,
               publish_status: data.publish_status
@@ -164,6 +166,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
       this.form_data = {
         page_name: '',
         banner_title: '',
+        banner_title_en: '',
         banner_image: '',
         publish_status: ''
       };

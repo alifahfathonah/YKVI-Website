@@ -10,7 +10,8 @@
 	    				inline-template
 	    				action-form="{{ route('product.update', [ $data->slug ]) }}"
 	    				redirect-uri="{{ route('product.index') }}"
-	    				data-uri="{{ route('product.data', [ $data->slug ]) }}">
+	    				data-uri="{{ route('product.data', [ $data->slug ]) }}"
+	    				:filter-product-category='@json($product_category)'>
 		    			@include('masterdata::product.form')
 		    		</product-form>
 			    </v-card-text>

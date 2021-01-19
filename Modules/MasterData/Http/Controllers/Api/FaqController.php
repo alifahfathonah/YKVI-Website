@@ -30,9 +30,19 @@ class FaqController extends Controller
 
             if ($request->publish_status) {
                 $data->publish_status = 1;
+                $publish_status = 1;
             } else {
                 $data->publish_status = 0;
+                $publish_status = 0;
             }
+
+            $request->merge([
+                'question'       => $request->input('question_en'),
+                'answer'         => $request->input('answer_en'),
+                'publish_status' => $publish_status,
+            ]);
+
+            $data_en = Faq::on('mysqlEng')->create($request->all());
             $data->save();
 
             log_activity(
@@ -41,10 +51,10 @@ class FaqController extends Controller
             );
 
             DB::commit();
-            return response_json(true, null, 'Faq berhasil disimpan.', $data);
+            return response_json(true, null, 'Faq ' . __('saved successfully'), $data);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -72,6 +82,13 @@ class FaqController extends Controller
             } else {
                 $faq->publish_status = 0;
             }
+
+            $data = Faq::on('mysqlEng')->where('id', $faq->id)->update([
+                'question'       => $request->input('question_en'),
+                'answer'         => $request->input('answer_en'),
+                'publish_status' => $faq->publish_status
+            ]);
+
             $faq->save();
 
             log_activity(
@@ -80,10 +97,10 @@ class FaqController extends Controller
             );
             
             DB::commit();
-            return response_json(true, null, 'Faq berhasil disimpan.', $faq);
+            return response_json(true, null, 'Faq ' . __('saved successfully'), $faq);
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menyimpan data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Save data failed, try again later.'));
         }
     }
 
@@ -101,12 +118,13 @@ class FaqController extends Controller
                 $faq
             );
 
+            $data_en = Faq::on('mysqlEng')->where('id', $faq->id)->delete();
             $faq->delete();
             DB::commit();
-            return response_json(true, null, 'Faq dihapus.');
+            return response_json(true, null, 'Faq ' . __('Deleted successfully'));
         } catch (\Exception $e) {
             DB::rollback();
-            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), 'Terdapat kesalahan saat menghapus data, silahkan dicoba kembali beberapa saat lagi.');
+            return response_json(false, $e->getMessage() . ' on file ' . $e->getFile() . ' on line number ' . $e->getLine(), __('Delete data failed, try again later.'));
         }
     }
 
@@ -117,6 +135,10 @@ class FaqController extends Controller
      */
     public function data(Faq $faq)
     {
+        $data = Faq::on('mysqlEng')->where('id', $faq->id)->firstOrFail();
+        $faq->question_en = $data->question;
+        $faq->answer_en = $data->answer;
+
         return response_json(true, null, 'Data retrieved', $faq);
     }
 
@@ -147,7 +169,11 @@ class FaqController extends Controller
             return response_json(false, 'Isian form salah', $validator->errors()->first());
         }
 
-        $query = Faq::query();
+        if (\Session::get('lang') == 'id'){
+            $query = Faq::query();
+        } else{
+            $query = Faq::on('mysqlEng');
+        }
 
         if ($request->has('search') && $request->input('search')) {
             $query->where(function($subquery) use ($request) {
@@ -159,6 +185,8 @@ class FaqController extends Controller
                     ->paginate($request->input('paginate') ?? 10);
 
         $data->getCollection()->transform(function($item) {
+            $data_id = Faq::find($item->id);
+            $item->slug = $data_id->slug;
             if ($item->publish_status) {
                 $item->publish_status = "Publish";
             } else {

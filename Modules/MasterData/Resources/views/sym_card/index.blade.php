@@ -6,18 +6,18 @@
         <v-col cols="12">
             <v-card>
                 <v-card-title>
-                    SymCard
+                    {{ __('SymCard') }}
                 </v-card-title> 
                 <v-divider></v-divider> 
                 <v-card-text>
                     @if ($data)
                         <v-list-item>
                             <v-list-item-content>
-                                <h4 class="my-2">Judul</h4>
+                                <h4 class="my-2">{{ __('Title') }}</h4>
                                 <span>{{ $data->title ?? '-' }}</span>
                             </v-list-tem-content>
                             <v-list-item-content>
-                                <h4 class="my-2">Gambar</h4>
+                                <h4 class="my-2">{{ __('Images') }}</h4>
                                 @if($data->url_sym_card_image)
                                     <v-img
                                         max-height="160"
@@ -37,12 +37,12 @@
                                 @endif
                             </v-list-tem-content>
                             <v-list-item-content>
-                                <h4 class="my-2">Deskripsi</h4>
+                                <h4 class="my-2">{{ __('Description') }}</h4>
                                 <p>{!! $data->description ?? '-' !!}</p>
                             </v-list-item-content>
                         </v-list-item>
                     @else
-                        <span class="ml-3">Tidak ada data SymCard</span>
+                        <span class="ml-3">{{ __('Data Not Found') }}</span>
                     @endif
                 </v-card-text>
                 <v-card-actions>
@@ -53,7 +53,7 @@
                             color="primary"
                             href="{{ route('sym-card.edit',[$data->slug ?? '']) }}"
                         >
-                            Ubah Data
+                            {{ __('Edit Data') }}
                         </v-btn>
                     @else
                         <v-btn
@@ -62,7 +62,7 @@
                             color="primary"
                             href="{{ route('sym-card.create') }}"
                         >
-                            Tambah Data
+                            {{ __('Add New Data') }}
                         </v-btn>
                     @endif
                 </v-card-actions>

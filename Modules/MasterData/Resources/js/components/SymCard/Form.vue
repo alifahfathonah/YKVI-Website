@@ -30,6 +30,8 @@
 			form_data: {
 				title: '',
 				description: '',
+				title_en: '',
+				description_en: '',
 				sym_card_image: '',
 				link_embed_youtube: '',
 			},
@@ -55,6 +57,8 @@
     		            		this.form_data = {
     		            			title: data.title,
     		            			description: data.description,
+    		            			title_en: data.title_en,
+    		            			description_en: data.description_en,
     		            			url_sym_card_image: data.url_sym_card_image,
     		            			sym_card_image: data.sym_card_image,
     		            			link_embed_youtube: data.link_embed_youtube,
@@ -80,6 +84,8 @@
 				this.form_data = {
 					title: '',
 					description: '',
+					title_en: '',
+					description_en: '',
 					link_embed_youtube: '',
 					sym_card_image: '',
 				}
@@ -102,8 +108,10 @@
 	    		if (this.dataUri) {
 	    		    form_data.append("_method", "put");
 	    		    form_data.append("description", this.form_data.description)
+	    		    form_data.append("description_en", this.form_data.description_en)
 	    		}
     		    form_data.append("description", this.form_data.description)
+    		    form_data.append("description_en", this.form_data.description_en)
 
 	    		axios.post(this.actionForm, form_data)
 	    		    .then((response) => {

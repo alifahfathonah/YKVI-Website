@@ -13,10 +13,14 @@ class SymCardController extends Controller
     public function __construct()
     {
         $this->middleware(['auth']);
-        $this->breadcrumbs = [
+    }
+
+    public function breadcrumbs()
+    {
+        return [
             ['href' => url('/'), 'text' => 'mdi-home'],
-            ['href' => route('sym-card.index'), 'text' => 'Master Data'],
-            ['href' => route('sym-card.index'), 'text' => 'SymCard'],
+            ['href' => route('sym-card.index'), 'text' => __('Master Data')],
+            ['href' => route('sym-card.index'), 'text' => __('SymCard')],
         ];
     }
 
@@ -29,11 +33,18 @@ class SymCardController extends Controller
         $data = SymCard::latest()->first();
         if ($data) {
             $data->url_sym_card_image = get_file_url('public', 'app/public/sym_card/sym_card_image/' . $data->sym_card_image);
+            if (\Lang::locale() == 'en'){
+                $data_eng = SymCard::on('mysqlEng')->latest()->first() ?? '';
+                $data_eng->url_sym_card_image = $data->url_sym_card_image;
+                $data_eng->sym_card_image = $data->sym_card_image;
+                $data_eng->slug = $data->slug;
+                $data = $data_eng;
+            }
         }
 
         return view('masterdata::sym_card.index')
-            ->with('page_title', 'SymCard')
-            ->with('breadcrumbs', $this->breadcrumbs)
+            ->with('page_title', __('SymCard'))
+            ->with('breadcrumbs', $this->breadcrumbs())
             ->with('data', $data ?? '');
 
     }
@@ -44,22 +55,22 @@ class SymCardController extends Controller
      */
     public function create()
     {
-        $this->breadcrumbs[] = ['href' => route('sym-card.create'), 'text' => 'Tambah SymCard'];
+        $breadcrumbs[] = ['href' => route('sym-card.create'), 'text' => __('Add') . ' ' . __('SymCard')];
 
         return view('masterdata::sym_card.create')
-            ->with('page_title', 'Tambah SymCard')
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title', __('Add') . ' ' . __('SymCard'))
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs));
     }
 
 
 
     public function edit(SymCard $sym_card)
     {
-        $this->breadcrumbs[] = ['href' => route('sym-card.edit', [ $sym_card->slug ]), 'text' => 'Ubah SymCard'];
+        $breadcrumbs[] = ['href' => route('sym-card.edit', [ $sym_card->slug ]), 'text' => __('Edit') . ' ' . __('SymCard')];
 
         return view('masterdata::sym_card.edit')
             ->with('data', $sym_card)
-            ->with('page_title', 'Ubah SymCard')
-            ->with('breadcrumbs', $this->breadcrumbs);
+            ->with('page_title', __('Edit') . ' ' . __('SymCard'))
+            ->with('breadcrumbs', array_merge($this->breadcrumbs(), $breadcrumbs));
     }
 }

@@ -92,6 +92,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
       search_kategori: null,
       form_data: {
         title: '',
+        title_en: '',
         type: '',
         link_embed_youtube: '',
         link_url_zoom: '',
@@ -119,6 +120,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
             var data = response.data.data;
             _this.form_data = {
               title: data.title,
+              title_en: data.title_en,
               type: data.type,
               link_embed_youtube: data.link_embed_youtube,
               link_url_zoom: data.link_url_zoom,
@@ -141,7 +143,7 @@ Object(vee_validate__WEBPACK_IMPORTED_MODULE_0__["localize"])('id', vee_validate
     },
     clearForm: function clearForm() {
       this.form_data = {
-        title: '',
+        title_en: '',
         type: '',
         link_embed_youtube: '',
         link_url_zoom: '',

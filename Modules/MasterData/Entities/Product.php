@@ -23,8 +23,10 @@ class Product extends Model
      * @var array
      */
     protected $fillable = [
+        'category_id',
     	'name',
         'description',
+        'detail',
     ];
 
     /**
@@ -75,5 +77,13 @@ class Product extends Model
     public function product_details()
     {
         return $this->hasMany('Modules\MasterData\Entities\ProductDetail', 'product_id');
+    }
+
+    /**
+     * Get the relationship for the model.
+     */
+    public function product_category()
+    {
+        return $this->belongsTo('Modules\MasterData\Entities\ProductCategory', 'category_id');
     }
 }

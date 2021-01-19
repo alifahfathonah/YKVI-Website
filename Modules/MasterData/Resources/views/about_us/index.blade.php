@@ -3,7 +3,7 @@
 @section('content')
     <about-us-form
         @if ($data)
-        data-uri="{{ $data->slug }}"
+        slug-uri="{{ $data->slug }}"
         @endif
         redirect-uri="{{ route('about-us.index') }}" 
         inline-template
@@ -14,18 +14,18 @@
                 <v-col cols="12">
                     <v-card>
                         <v-card-title>
-                            About Us
+                            {{ __('About Us') }}
                         </v-card-title> 
                         <v-divider></v-divider> 
                         <v-card-text>
                             @if ($data)
                                 <v-list-item>
                                     <v-list-item-content>
-                                        <h4 class="my-2">Judul</h4>
+                                        <h4 class="my-2">{{ __('Title') }}</h4>
                                         <v-list-item-title>{{ $data->title ?? '-' }}</v-list-item-title>
                                     </v-list-tem-content>
                                     <v-list-item-content>
-                                        <h4 class="my-2">Gambar</h4>
+                                        <h4 class="my-2">{{ __('Images') }}</h4>
                                         @if($data->about_us_image)
                                             <v-img
                                                 max-height="160"
@@ -50,12 +50,12 @@
                                         @endif
                                     </v-list-item-content>
                                     <v-list-item-content>
-                                        <h4 class="my-2">Deskripsi</h4>
+                                        <h4 class="my-2">{{ __('Description') }}</h4>
                                         <p>{!! $data->description ?? '-' !!}</p>
                                     </v-list-item-content>
                                 </v-list-item>
                             @else
-                                <span class="ml-3">Tidak ada data About Us</span>
+                                <span class="ml-3">{{ __('Data Not Found') }}</span>
                             @endif
                         </v-card-text>
                         <v-card-actions>
@@ -66,7 +66,7 @@
                                     color="primary"
                                     href="{{ route('about-us.edit',[$data->slug ?? '']) }}"
                                 >
-                                    Ubah Data
+                                    {{ __('Edit Data') }}
                                 </v-btn>
                             @else
                                 <v-btn
@@ -75,7 +75,7 @@
                                     color="primary"
                                     href="{{ route('about-us.create') }}"
                                 >
-                                    Tambah Data
+                                    {{ __('Add New Data') }}
                                 </v-btn>
                             @endif
                         </v-card-actions>
@@ -98,13 +98,13 @@
                         >
                             <v-icon size="100" color="yellow darken-2">mdi-alert-rhombus</v-icon>
                             <p class="text-md-h6 text-xs-h6 black--text my-5">
-                                Apakah anda yakin untuk menghapus gambar ini ?
+                                {{ __('Are you sure you want to delete this data ?') }}
                             </p>
                         </v-row>
                     </v-card-text>
                     <v-card-actions>
                         <v-spacer></v-spacer>
-                        <v-btn text :disabled="delete_loader" @click="prompt_delete = false">Cancel</v-btn>
+                        <v-btn text :disabled="delete_loader" @click="prompt_delete = false">{{ __('Cancel') }}</v-btn>
                         <v-btn
                             class="white--text"
                             elevation="5"
@@ -114,7 +114,7 @@
                             @click="deleteItem()"
                             >
                             <v-icon>mdi-trash-can-outline</v-icon>
-                            <span class="hidden-xs-only ml-2">Delete</span>
+                            <span class="hidden-xs-only ml-2">{{ __('Delete') }}</span>
                             <template v-slot:loader>
                                 <span class="custom-loader">
                                     <v-icon color="white">mdi-trash-can-outline</v-icon>

@@ -9,7 +9,8 @@
     				<product-form
 	    				inline-template
 	    				action-form="{{ route('product.store') }}"
-	    				redirect-uri="{{ route('product.index') }}">
+	    				redirect-uri="{{ route('product.index') }}"
+                        :filter-product-category='@json($product_category)'>
 		    			@include('masterdata::product.form')
 		    		</product-form>
 			    </v-card-text>

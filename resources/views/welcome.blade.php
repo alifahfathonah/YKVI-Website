@@ -2,7 +2,7 @@
 
 @section('content')
     <br>
-    <h1>Selamat Datang, {{ Auth::user()->name }}</h1>
+    <h1>{{ __('Welcome') }}, {{ Auth::user()->name }}</h1>
     <br>
     <br>
     <br>
